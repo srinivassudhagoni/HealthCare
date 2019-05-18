@@ -16,7 +16,7 @@ namespace HealthCare.Controllers
     {
         private HealthCareEntities db = new HealthCareEntities();
 
-        // GET: api/Departments
+        // GET: api/Departments department
         public IQueryable<Department> GetDepartments()
         {
             return db.Departments;

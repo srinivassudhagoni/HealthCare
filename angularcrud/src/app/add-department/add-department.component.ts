@@ -3,7 +3,7 @@ import { DepartmentService } from '../shared/department.service';
 import { NgForm } from '@angular/forms';
 import { Department } from '../shared/department.model';
 import { ActivatedRoute } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-department',
@@ -13,7 +13,7 @@ import { NgIf } from '@angular/common';
 export class AddDepartmentComponent implements OnInit {
   Department:Department;   
 
-  constructor( private Departmentservice : DepartmentService, private route: ActivatedRoute) { }
+  constructor( private Departmentservice : DepartmentService, private route: ActivatedRoute,private location:Location) { }
 
   ngOnInit() {
 
@@ -35,7 +35,10 @@ this.Department = data; });
     this.Department.Id=form.value.Id;
     this.Department.Name=form.value.Name;
     
-    this.Departmentservice.addDepartment(this.Department);
+    this.Departmentservice.addDepartment(this.Department).subscribe(()=>this.goBack());
+  }
+  goBack(): void {
+    this.location.back();
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DepartmentService } from '../shared/department.service';
 import { Department } from '../shared/department.model';
 
+
 @Component({
   selector: 'app-list-department',
   templateUrl: './list-department.component.html',
@@ -31,7 +32,9 @@ export class ListDepartmentComponent implements OnInit {
 
       onDelete(id: number){
 
-        this.Departmentservice.deleteDepartmentById(id);
+        this.Departmentservice.deleteDepartmentById(id).subscribe(()=>        
+        this.getList()
+        );
   }
-
+  
 }

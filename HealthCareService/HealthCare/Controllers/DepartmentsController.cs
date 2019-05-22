@@ -16,7 +16,7 @@ namespace HealthCare.Controllers
     {
         private HealthCareEntities db = new HealthCareEntities();
 
-        // GET: api/Departments department
+        // GET: api/Departments 
         public IQueryable<Department> GetDepartments()
         {
             return db.Departments;
@@ -39,10 +39,7 @@ namespace HealthCare.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutDepartment(int id, Department department)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+
 
             if (id != department.Id)
             {
@@ -74,12 +71,15 @@ namespace HealthCare.Controllers
         [ResponseType(typeof(Department))]
         public IHttpActionResult PostDepartment(Department department)
         {
-            if (!ModelState.IsValid)
+            if(department.Id==0)
+                db.Departments.Add(department);
+
+            if (department.Id > 0)
             {
-                return BadRequest(ModelState);
+                var departmentEntity = db.Departments.FirstOrDefault(x => x.Id == department.Id);
+                departmentEntity.Name = department.Name;
             }
 
-            db.Departments.Add(department);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = department.Id }, department);

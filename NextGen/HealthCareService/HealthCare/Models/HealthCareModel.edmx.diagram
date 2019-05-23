@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="78fcdf971603437082230904603dd5d8" Name="Diagram1">
+        <EntityTypeShape EntityType="HealthCareModel.Appointment" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCareModel.Department" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCareModel.Doctor" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCareModel.DoctorAddress" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCareModel.Doctorleave" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCareModel.DoctorSpecialized" Width="1.5" PointX="8.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCareModel.Patient" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCareModel.ResourceType" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCareModel.Specialization" Width="1.5" PointX="6" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="HealthCareModel.FK_Appointment_Doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthCareModel.FK_Appointment_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthCareModel.FK_Doctor_Doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthCareModel.FK_Doctor_ResourceType" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthCareModel.FK_DoctorAddress_Doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthCareModel.FK_Doctorleave_Doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthCareModel.FK_DoctorSpecialized_Doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthCareModel.FK_DoctorSpecialized_Specialization" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

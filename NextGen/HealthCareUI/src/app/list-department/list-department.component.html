@@ -1,0 +1,28 @@
+<div class="mat-headline">List of Departments</div>
+<div class="container">
+    <input  type="text" class="form-control"  id="search-box" [(ngModel)]="searchTerm" />
+  <div class="addbutton" >   
+      <!-- <button (click)="add" color="primary"  mat-raised-button disableRipple>Add</button> -->
+      <a routerLink="/add-department" mat-raised-button color="primary">Add</a>
+  </div>
+  <div  class="table table-striped">
+    <thead>
+      <th >Id</th>
+      <th >Name</th>
+      <th >Edit</th>
+      <th >Delete</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dept of Departments ">
+        <td>{{dept.Id}}</td>
+        <td>{{dept.Name}}</td>
+        <td> 
+            <a routerLink="/add-department/{{dept.Id}}" mat-raised-button color="primary">Edit</a>
+        </td>
+        <td> 
+            <button (click)="onDelete(dept.Id)" color="warn" mat-stroked-button>Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </div>
+</div>

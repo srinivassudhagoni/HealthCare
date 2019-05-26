@@ -9,13 +9,21 @@ import { DepartmentService } from './shared/department.service';
 import {HttpClientModule} from '@angular/common/http';
 import { ListDepartmentComponent } from './list-department/list-department.component';
 import { AddDepartmentComponent } from './add-department/add-department.component';
+import { ListDoctorComponent } from './list-doctor/list-doctor.component';
+import { AddDoctorComponent } from './add-doctor/add-doctor.component';
+import { ViewDoctorComponent } from './view-doctor/view-doctor.component';
+import { ViewDepartmentComponent } from './view-department/view-department.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ListDepartmentComponent,
-    AddDepartmentComponent
+    AddDepartmentComponent,
+    ListDoctorComponent,
+    AddDoctorComponent,
+    ViewDoctorComponent,
+    ViewDepartmentComponent
   ],
   imports: [
     BrowserModule,

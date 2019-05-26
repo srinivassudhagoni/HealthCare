@@ -254,8 +254,6 @@
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SpecializedIn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Appointments" Relationship="Self.FK_Appointment_Doctor" FromRole="Doctor" ToRole="Appointment" />
-          <NavigationProperty Name="Doctor1" Relationship="Self.FK_Doctor_Doctor" FromRole="Doctor" ToRole="Doctor1" />
-          <NavigationProperty Name="Doctor2" Relationship="Self.FK_Doctor_Doctor" FromRole="Doctor1" ToRole="Doctor" />
           <NavigationProperty Name="ResourceType" Relationship="Self.FK_Doctor_ResourceType" FromRole="Doctor" ToRole="ResourceType" />
           <NavigationProperty Name="DoctorAddresses" Relationship="Self.FK_DoctorAddress_Doctor" FromRole="Doctor" ToRole="DoctorAddress" />
           <NavigationProperty Name="Doctorleaves" Relationship="Self.FK_Doctorleave_Doctor" FromRole="Doctor" ToRole="Doctorleave" />
@@ -273,7 +271,6 @@
           <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Pincode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Doctor" Relationship="Self.FK_DoctorAddress_Doctor" FromRole="DoctorAddress" ToRole="Doctor" />
         </EntityType>
         <EntityType Name="Doctorleave">
           <Key>
@@ -283,7 +280,6 @@
           <Property Name="DoctorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="From" Type="DateTime" Precision="0" />
           <Property Name="To" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Doctor" Relationship="Self.FK_Doctorleave_Doctor" FromRole="Doctorleave" ToRole="Doctor" />
         </EntityType>
         <EntityType Name="DoctorSpecialized">
           <Key>
@@ -309,7 +305,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_ResourceType" FromRole="ResourceType" ToRole="Doctor" />
         </EntityType>
         <EntityType Name="Specialization">
           <Key>
@@ -340,18 +335,6 @@
             </Principal>
             <Dependent Role="Appointment">
               <PropertyRef Name="PatientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Doctor_Doctor">
-          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
-          <End Role="Doctor1" Type="Self.Doctor" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Doctor">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Doctor1">
-              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -432,10 +415,6 @@
           <AssociationSet Name="FK_Appointment_Patient" Association="Self.FK_Appointment_Patient">
             <End Role="Patient" EntitySet="Patients" />
             <End Role="Appointment" EntitySet="Appointments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Doctor_Doctor" Association="Self.FK_Doctor_Doctor">
-            <End Role="Doctor" EntitySet="Doctors" />
-            <End Role="Doctor1" EntitySet="Doctors" />
           </AssociationSet>
           <AssociationSet Name="FK_Doctor_ResourceType" Association="Self.FK_Doctor_ResourceType">
             <End Role="ResourceType" EntitySet="ResourceTypes" />

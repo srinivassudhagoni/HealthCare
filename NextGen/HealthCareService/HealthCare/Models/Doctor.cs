@@ -30,9 +30,7 @@ namespace HealthCare.Models
         public string SpecializedIn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Appointment> Appointments { get; set; }
-        public virtual Doctor Doctor1 { get; set; }
-        public virtual Doctor Doctor2 { get; set; }
+        public virtual ICollection<Appointment> Appointments { get; set; }       
         public virtual ResourceType ResourceType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoctorAddress> DoctorAddresses { get; set; }

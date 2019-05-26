@@ -12,18 +12,18 @@ export class DepartmentService {
   
 
   constructor(private http: HttpClient) { }
-    baseURL = 'http://localhost:50610/api/';
+    baseURL = 'http://localhost:50610/api/Departments/';
     handleError: any ;
     request : GetListRequest;
 
     // refreshList = new BehaviorSubject<boolean>(false);
 
     getDepartmentList() {
-      return this.http.get<Department[]>(this.baseURL + 'Departments');
+      return this.http.get<Department[]>(this.baseURL + 'GetList');
     }
 
     getDepartmentById(id: number) {
-      return this.http.get<Department>(this.baseURL + 'Departments/' + id);
+      return this.http.get<Department>(this.baseURL + 'Get/' + id);
     }
 
     deleteDepartmentById(id: number) {
@@ -34,7 +34,7 @@ export class DepartmentService {
         })
       };
 
-      return this.http.delete(this.baseURL + 'Departments/' + id, options);
+      return this.http.delete(this.baseURL + 'DeleteDepartment/' + id, options)
       }
 
       // this.refreshList.next(true);
@@ -45,7 +45,7 @@ export class DepartmentService {
         this.request.SearchString = searchString;
 
         const options = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) };
-        return  this.http.post<Department[]>(this.baseURL + 'Departments/GetList', this.request, options);
+        return  this.http.post<Department[]>(this.baseURL + 'GetFilteredList', this.request, options)
       }
 
     
@@ -53,7 +53,7 @@ export class DepartmentService {
    addDepartment(Department: Department){
 
       const options = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) };
-       return  this.http.post<Department>(this.baseURL + 'Departments', Department, options)
+       return  this.http.post<Department>(this.baseURL + 'Persist', Department, options)
         };
-      
+       
       }

@@ -10,7 +10,7 @@ import { Department } from '../shared/department.model';
 })
 export class ListDepartmentComponent implements OnInit {
  _searchString: string;
-  Departments: Department[];
+  _departments: Department[];
   constructor(private Departmentservice: DepartmentService) { }
   get searchTerm():string{
     return this._searchString;
@@ -33,14 +33,14 @@ export class ListDepartmentComponent implements OnInit {
       getList(){
 
         this.Departmentservice.getDepartmentList().subscribe((data: Department[]) => {
-          this.Departments = data;
+          this._departments = data;
             });
       }
 
        onSearch(searchString: string){
 
         this.Departmentservice.getList(searchString).subscribe((data: Department[]) => {
-          this.Departments = data;
+          this._departments = data;
             });
       }
 

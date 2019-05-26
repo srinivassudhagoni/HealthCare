@@ -1,0 +1,22 @@
+<form #form="ngForm" (ngSubmit)="addDoctor(form)">
+  
+  <div class="form-grouup">
+      <label>First Name</label>
+      <input type="text" name="FirstName" #FirstName="ngModel" [(ngModel)]="doctor.FirstName" class="form-control">
+  </div>
+  <div class="form-grouup">
+      <label>Last Name</label>
+      <input type="text" name="LastName" #LastName="ngModel" [(ngModel)]="doctor.LastName" class="form-control">
+  </div>
+  <div class="form-grouup">
+      <label>Specialization In</label>
+      <input type="text" name="SpecializedIn" #SpecializedIn="ngModel" [(ngModel)]="doctor.SpecializedIn" class="form-control">
+  </div>
+  <label >Select type</label><br>
+  <mat-radio-group    name="resourceGroup" [(ngModel)]="resourceGroup">
+      <mat-radio-button *ngFor="let resource of ResourceTypeList" [value]="resource"> {{resource.Name}}</mat-radio-button>
+  </mat-radio-group><br>
+  <button color="primary" mat-raised-button >Save</button>
+</form>
+
+

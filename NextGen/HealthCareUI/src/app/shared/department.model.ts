@@ -1,10 +1,26 @@
-export class Department {
-    Id:number;
-    Name:string;
+export class Department 
+{
+    Id: number;
+    Name: string;
 }
 
-export class GetListRequest {
-    
-    SearchString:string;
+export class GetListRequest 
+{
+    SearchString: string;
 }
 
+export class Doctor
+{
+     Id: number;
+     ResourceType: ResourceType;
+     FirstName: string;
+     lastName: string;
+     SpecializedIn:string;
+     ResourceTypeId:number
+}
+
+export class ResourceType
+{
+    Id: number;
+    Name: string;
+}

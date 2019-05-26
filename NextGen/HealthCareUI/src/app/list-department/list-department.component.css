@@ -1,4 +1,7 @@
-.addbutton{
-     margin-left: 295px;
-}
 a{text-decoration: none;}
+#search-box{
+     width: 250px;
+}
+.add{
+     margin-left: 100px;
+}

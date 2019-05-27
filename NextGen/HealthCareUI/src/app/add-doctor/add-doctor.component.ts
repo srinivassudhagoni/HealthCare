@@ -17,7 +17,7 @@ export class AddDoctorComponent implements OnInit {
   resourceGroup:ResourceType;
 
   constructor(
-    private doctorservice: DoctorService ,
+    private doctorService: DoctorService ,
     private route: ActivatedRoute,
     private location: Location ) { }
 
@@ -26,8 +26,8 @@ export class AddDoctorComponent implements OnInit {
     this.getResourceTypeList();
     const docId = this.route.snapshot.params['Id'];
     if(docId === undefined){return;}
-    this.doctorservice.getById(docId).subscribe(
-      (data:Doctor)=>
+    this.doctorService.getById(docId).subscribe(
+      (data: Doctor)=>
       {
         this.doctor = data;
       this.resourceGroup = this.doctor.ResourceType;
@@ -38,13 +38,12 @@ export class AddDoctorComponent implements OnInit {
   addDoctor(form: NgForm){
     this.doctor = new Doctor();
     
-    // this.doctor.Id = form.value.Id;
+    this.doctor.Id = form.value.Id;
     this.doctor.FirstName = form.value.FirstName;    
-    this.doctor.lastName = form.value.lastName;
+    this.doctor.LastName = form.value.LastName;
     this.doctor.SpecializedIn = form.value.SpecializedIn;  
     this.doctor.ResourceTypeId  =this.resourceGroup.Id;  
-    this.doctorservice.addDoctor(this.doctor)
-                      .subscribe(()=>this.goBack());
+    this.doctorService.addDoctor(this.doctor).subscribe(()=>this.goBack());
   }
 
   goBack(): void{

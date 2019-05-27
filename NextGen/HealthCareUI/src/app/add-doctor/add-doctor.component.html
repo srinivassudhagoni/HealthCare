@@ -1,14 +1,17 @@
 <form #form="ngForm" (ngSubmit)="addDoctor(form)">
-  
-  <div class="form-grouup">
+  <div class="form-group">
+      <label>Id</label><br>
+      <input type="text" name="Id" #Id="ngModel" [(ngModel)]="doctor.Id" class="form-cotrol" readonly>
+  </div>
+  <div class="form-group">
       <label>First Name</label>
       <input type="text" name="FirstName" #FirstName="ngModel" [(ngModel)]="doctor.FirstName" class="form-control">
   </div>
-  <div class="form-grouup">
+  <div class="form-group">
       <label>Last Name</label>
       <input type="text" name="LastName" #LastName="ngModel" [(ngModel)]="doctor.LastName" class="form-control">
   </div>
-  <div class="form-grouup">
+  <div class="form-group">
       <label>Specialization In</label>
       <input type="text" name="SpecializedIn" #SpecializedIn="ngModel" [(ngModel)]="doctor.SpecializedIn" class="form-control">
   </div>

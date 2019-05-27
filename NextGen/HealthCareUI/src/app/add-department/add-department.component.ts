@@ -39,6 +39,6 @@ this.Department = data; });
   }
   goBack(): void {
     this.location.back();
-  }
+    }
 
 }

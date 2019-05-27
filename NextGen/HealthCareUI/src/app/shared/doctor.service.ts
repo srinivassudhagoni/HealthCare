@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Doctor,GetListRequest } from './department.model';
+import { Doctor, GetListRequest } from './department.model';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -35,7 +35,7 @@ export class DoctorService {
       headers: new HttpHeaders({
         'content-type':'application/json'})
     };
-    return this.http.delete(this.baseURL +'DeleteDepartment/'+ id,options);
+    return this.http.delete(this.baseURL +'DeleteDoctor/'+ id,options);
   };
 
   searchList(searchString: string){

@@ -14,7 +14,7 @@ export class Doctor
      Id: number;
      ResourceType: ResourceType;
      FirstName: string;
-     lastName: string;
+     LastName: string;
      SpecializedIn:string;
      ResourceTypeId:number
 }

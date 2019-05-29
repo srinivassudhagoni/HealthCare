@@ -1,117 +1,139 @@
 <mat-horizontal-stepper>
    <mat-step [stepControl]="firstFromGroup">
       <form>
-         <ng-template matStepLabel>Fill out the form </ng-template>
-         <h3>Select Department</h3>
+         <ng-template matStepLabel>Fill out the form </ng-template><br>
          <mat-form-field>
-            <mat-label>Department</mat-label>
-            <mat-select>
-               <mat-option >
+            <!-- <mat-label>Department</mat-label> -->
+            <mat-select placeholder="Department" name="DefaultDepartment" [(ngModel)]="DefaultDepartment"
+               (selectionChange)="getDoctorList()">
+               <mat-option *ngFor="let dept of DepartmentList" [value]="dept.Id">{{ dept.Name }}
                </mat-option>
             </mat-select>
          </mat-form-field>
          <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="consultationDate"
+               name="ConsultationTime">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
          </mat-form-field>
-         <div>
+         <div class="table table-striped">
+            <thead>
+               <th>#</th>
+               <th>Id</th>
+               <th> Name</th>
+               <th>Specialization</th>
+            </thead>
+            <tbody>
+               <tr *ngFor="let doc of doctorList">
+                  <td>
+                     <mat-radio-group name="consultingDoctorId" [(ngModel)]="consultingDoctorId">
+                        <mat-radio-button [value]="doc.Id"></mat-radio-button>
+                     </mat-radio-group><br>
+                  </td>
+                  <td>{{doc.Id}}</td>
+                  <td>{{doc.FirstName}} {{doc.LastName}}</td>
+                  <td>{{doc.SpecializedIn}}</td>
+               </tr>
+            </tbody>
+         </div>
+         <div class="btn">
             <button mat-flat-button color="primary" matStepperNext>Next</button>
          </div>
       </form>
    </mat-step>
    <mat-step [stepControl]="secondFromGroup">
       <form>
-         <ng-template matStepLabel>Fill out the details </ng-template>
-         <table class="table" >
+         <ng-template matStepLabel>Fill out the details </ng-template><br>
+         <table class="table">
             <div class="form-group ">
                <tr>
-                  <td class="col"> 
-                     <!-- <label>Id</label> -->
-                     <input type="text" class="form-control" placeholder="Id">
+                  <td class="col">
+                     <input type="text" name="Id" #Id="ngModel" [(ngModel)]="patient.Id" class="form-control"
+                        placeholder="Id">
                   </td>
-                  <td class="col"> 
-                     <!-- <label>First Name</label> -->
-                     <input type="text" class="form-control" placeholder="First Name">
-                  </td>
-               </tr>
-               <tr>
-                     <td class="col"> 
-                     <!-- <label>Last Name</label> -->
-                     <input type="text" class="form-control" placeholder="Last Name">
-                  </td>
-                  <td class="col"> 
-                     <!-- <label>Email</label> -->
-                     <input type="email" class="form-control" placeholder="Email">
+                  <td class="col">
+                     <input type="text" name="FirstName" #First Name="ngModel" [(ngModel)]="patient.FirstName"
+                        class="form-control" placeholder="First Name">
                   </td>
                </tr>
                <tr>
-                     <td class="col"> 
-                     <label>Mobile</label>
-                     <input type="text" class="form-control">
+                  <td class="col">
+                     <input type="text" name="LastName" #Last Name="ngModel" [(ngModel)]="patient.LastName"
+                        class="form-control" placeholder="Last Name">
                   </td>
-                  <td class="col"> 
-                     <label>AddressLine1</label>
-                     <input type="text" class="form-control">
-                  </td>
-               </tr>
-               <tr>
-                     <td class="col"> 
-                     <label>AddressLine2</label>
-                     <input type="text" class="form-control">
-                  </td>
-                  <td class="col"> 
-                     <label>City</label>
-                     <input type="text" class="form-control">
+                  <td class="col">
+                     <input type="email" name="Email" #Email="ngModel" [(ngModel)]="patient.Email" class="form-control"
+                        placeholder="Email">
                   </td>
                </tr>
                <tr>
-                     <td class="col"> 
-                     <label>State</label>
-                     <input type="text" class="form-control">
+                  <td class="col">
+                     <input type="text" name="Mobile" #Mobile="ngModel" [(ngModel)]="patient.Mobile"
+                        class="form-control" placeholder="Mobile">
                   </td>
-                  <td class="col"> 
-                     <label>Country</label>
-                     <input type="text" class="form-control">
+                  <td class="col">
+                     <input type="text" name="AddressLine1" #AddressLine1="ngModel" [(ngModel)]="patient.AddressLine1"
+                        class="form-control" placeholder="AddressLine1">
                   </td>
                </tr>
                <tr>
-                     <td class="col"> 
-                       <button mat-flat-button color="primary" matStepperPrevious>Back</button></td>
-                       <td class="col"> 
-                       <button mat-flat-button color="primary" matStepperNext>Next</button></td>
+                  <td class="col">
+                     <input type="text" name="AddressLine2" #AddressLine2="ngModel" [(ngModel)]="patient.AddressLine2"
+                        class="form-control" placeholder="AddressLine2">
+                  </td>
+                  <td class="col">
+                     <input type="text" name="City" #City="ngModel" [(ngModel)]="patient.City" class="form-control"
+                        placeholder="City">
+                  </td>
+               </tr>
+               <tr>
+                  <td class="col">
+                     <input type="text" name="State" #State="ngModel" [(ngModel)]="patient.State" class="form-control"
+                        placeholder="State">
+                  </td>
+                  <td class="col">
+                     <input type="text" name="Country" #Country="ngModel" [(ngModel)]="patient.Country"
+                        class="form-control" placeholder="Country">
+                  </td>
+               </tr>
+               <tr>
+                  <td class="col">
+                     <button mat-flat-button color="primary" matStepperPrevious>Back</button></td>
+                  <td class="col">
+                     <button mat-flat-button color="primary" matStepperNext>Next</button></td>
                </tr>
             </div>
-         </table>         
+         </table>
       </form>
    </mat-step>
    <mat-step [stepControl]="thirdFromGroup">
       <form>
-         <ng-template matStepLabel>Payment details</ng-template>
-         <table>
-               <div class="form-group ">
-                  <tr>
-                     <td> 
-                        <label>Card Number</label>
-                        <input type="text" class="form-control">
-                     </td>
-                     <td>
-                        <label>Expiration Date</label>
-                        <input type="text" class="form-control">
-                     </td>
-                  </tr>
-                  <tr>
-                        <td> 
-                           <label>Cvv</label>
-                           <input type="text" class="form-control">
-                        </td>
-                        <td>
-                           <label>Name on the card</label>
-                           <input type="text" class="form-control">
-                        </td>
-                     </tr>
-               </div>
-         </table>         
+         <ng-template matStepLabel>Payment details</ng-template><br>
+         <table class="table">
+            <div class="form-group ">
+               <tr>
+                  <td class="col">
+                     <input type="text" name="CardNumber" #CardNumber="ngModel" [(ngModel)]="payment.CardNumber"
+                        class="form-control" placeholder="Card Number">
+                  </td>
+                  <td class="col">
+                     <input type="text" name="ExpirationDate" #ExpirationDate="ngModel"
+                        [(ngModel)]="payment.ExpirationDate" class="form-control" placeholder="Expiration Date">
+                  </td>
+               </tr>
+               <tr>
+                  <td class="col">
+                     <input type="text" name="CVV" #CVV="ngModel" [(ngModel)]="payment.CVV" class="form-control"
+                        placeholder="Cvv">
+                  </td>
+                  <td class="col">
+                     <input type="text" name="CustomerName" #CustomerName="ngModel"
+                        [(ngModel)]="payment.CustomerName" class="form-control" placeholder="Name on the card">
+                  </td>
+               </tr>
+               <tr><button mat-raised-button color="primary" (click)="saveAppointment()">Save</button></tr>
+            </div>
+         </table>
       </form>
    </mat-step>
 </mat-horizontal-stepper>

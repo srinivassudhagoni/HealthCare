@@ -22,6 +22,8 @@
         <AssociationConnector Association="HealthCareModel.FK_Doctor_Department" />
         <EntityTypeShape EntityType="HealthCareModel.Patient" Width="1.5" PointX="8.125" PointY="5.625" />
         <AssociationConnector Association="HealthCareModel.FK_Appointment_Patient" />
+        <EntityTypeShape EntityType="HealthCareModel.CreditCardPayment" Width="1.5" PointX="8.375" PointY="0.875" />
+        <AssociationConnector Association="HealthCareModel.FK_Appointment_CreditCardPayment" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

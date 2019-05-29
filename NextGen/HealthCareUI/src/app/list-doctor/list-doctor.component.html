@@ -16,6 +16,7 @@
       <th> Name</th>
       <th>Specialization</th>
       <th>Availability</th>
+      <th>Department</th>
       <th>Edit</th>
       <th>Delete</th>
       <th>View</th>
@@ -26,6 +27,7 @@
         <td>{{doc.FirstName}} {{doc.LastName}}</td>
         <td>{{doc.SpecializedIn}}</td>
         <td>{{doc.ResourceType.Name}}</td>
+        <td>{{doc.Department.Name}}</td>
         <td>
           <a routerLink="/add-doctor/{{doc.Id}}" mat-raised-button color="primary">Edit</a>
         </td>

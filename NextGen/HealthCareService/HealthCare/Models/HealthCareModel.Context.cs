@@ -34,5 +34,6 @@ namespace HealthCare.Models
         public virtual DbSet<ResourceType> ResourceTypes { get; set; }
         public virtual DbSet<Specialization> Specializations { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<CreditCardPayment> CreditCardPayments { get; set; }
     }
 }

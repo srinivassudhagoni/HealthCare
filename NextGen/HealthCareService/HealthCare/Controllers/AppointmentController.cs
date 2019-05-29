@@ -81,6 +81,8 @@ namespace HealthCare.Controllers
                 appointmentEntity.ConsultationTime = request.Appointment.ConsultationTime;
                 if (request.Appointment.PatientId == 0)
                     appointmentEntity.Patient = request.Appointment.Patient;
+                if (request.Appointment.CreditCardPayment != null)
+                    appointmentEntity.CreditCardPayment = request.Appointment.CreditCardPayment;
             }
 
             db.SaveChanges();

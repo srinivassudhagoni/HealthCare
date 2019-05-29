@@ -184,6 +184,9 @@
     <Compile Include="Models\Appointment.cs">
       <DependentUpon>HealthCareModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreditCardPayment.cs">
+      <DependentUpon>HealthCareModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Department.cs">
       <DependentUpon>HealthCareModel.tt</DependentUpon>
     </Compile>

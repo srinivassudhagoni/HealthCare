@@ -12,17 +12,12 @@ namespace HealthCare.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Patient
+    public partial class CreditCardPayment
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string MobileNumber { get; set; }
-        public string AddressLine1 { get; set; }
-        public string AddressLine2 { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Country { get; set; }
+        public string CardNumber { get; set; }
+        public Nullable<System.DateTime> ExpirationDate { get; set; }
+        public string CustomerName { get; set; }
+        public string CVV { get; set; }
     }
 }

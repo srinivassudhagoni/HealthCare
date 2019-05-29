@@ -17,7 +17,6 @@ namespace HealthCare.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Doctor()
         {
-            this.Appointments = new HashSet<Appointment>();
             this.DoctorAddresses = new HashSet<DoctorAddress>();
             this.Doctorleaves = new HashSet<Doctorleave>();
             this.DoctorSpecializeds = new HashSet<DoctorSpecialized>();
@@ -30,8 +29,6 @@ namespace HealthCare.Models
         public string SpecializedIn { get; set; }
         public Nullable<int> DepartmentId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual ResourceType ResourceType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoctorAddress> DoctorAddresses { get; set; }

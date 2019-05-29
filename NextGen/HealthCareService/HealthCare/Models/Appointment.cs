@@ -18,8 +18,10 @@ namespace HealthCare.Models
         public Nullable<System.DateTime> ConsultationTime { get; set; }
         public int PatientId { get; set; }
         public int DoctorId { get; set; }
+        public Nullable<int> CreditCardPaymentId { get; set; }
     
         public virtual Doctor Doctor { get; set; }
         public virtual Patient Patient { get; set; }
+        public virtual CreditCardPayment CreditCardPayment { get; set; }
     }
 }

@@ -15,6 +15,7 @@ export class Doctor {
     SpecializedIn: string;
     ResourceTypeId: number;
     DepartmentId: number;
+    Department : Department;
 }
 
 export class ResourceType {

@@ -78,7 +78,9 @@ namespace HealthCare.Controllers
                 var doctorEntity = db.Doctors.FirstOrDefault(x => x.Id == doctor.Id);
                 doctorEntity.FirstName = doctor.FirstName;
                 doctorEntity.LastName = doctor.LastName;
-                doctorEntity.ResourceType = new ResourceType { Id = 1, Name = "FullTime" };
+                doctorEntity.ResourceTypeId = doctor.ResourceTypeId;
+                if (doctor.ResourceTypeId == 0)
+                    doctorEntity.ResourceType = doctor.ResourceType ?? new ResourceType { Id = 1, Name = "FullTime" };
                 doctorEntity.SpecializedIn = doctor.SpecializedIn;
                 doctorEntity.DepartmentId = doctor.DepartmentId;
 

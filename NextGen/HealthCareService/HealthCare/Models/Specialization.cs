@@ -14,16 +14,7 @@ namespace HealthCare.Models
     
     public partial class Specialization
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Specialization()
-        {
-            this.DoctorSpecializeds = new HashSet<DoctorSpecialized>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DoctorSpecialized> DoctorSpecializeds { get; set; }
     }
 }

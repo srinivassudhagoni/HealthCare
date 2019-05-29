@@ -11,34 +11,35 @@ import { Location } from '@angular/common';
   styleUrls: ['./add-department.component.css']
 })
 export class AddDepartmentComponent implements OnInit {
-  Department:Department;   
+  Department: Department;
 
-  constructor( private Departmentservice : DepartmentService, private route: ActivatedRoute,private location:Location) { }
+  constructor(private Departmentservice: DepartmentService, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit() {
 
-this.Department = new Department();
+    this.Department = new Department();
 
- const deptId = this.route.snapshot.params['Id'];
+    const deptId = this.route.snapshot.params['Id'];
 
- if(deptId === undefined) { return; }
+    if (deptId === undefined) { return; }
 
-this.Departmentservice.getDepartmentById(deptId)
-.subscribe((data: Department) => {
-this.Department = data; });
+    this.Departmentservice.getDepartmentById(deptId)
+      .subscribe((data: Department) => {
+        this.Department = data;
+      });
   }
 
 
-  addDepartment(form:NgForm){
-    
-    this.Department=new Department();    
-    this.Department.Id=form.value.Id;
-    this.Department.Name=form.value.Name;
-    
-    this.Departmentservice.addDepartment(this.Department).subscribe(()=>this.goBack());
+  addDepartment(form: NgForm) {
+
+    this.Department = new Department();
+    this.Department.Id = form.value.Id;
+    this.Department.Name = form.value.Name;
+
+    this.Departmentservice.addDepartment(this.Department).subscribe(() => this.goBack());
   }
   goBack(): void {
     this.location.back();
-    }
+  }
 
 }

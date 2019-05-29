@@ -1,11 +1,15 @@
 <div class="mat-headline">List of Departments</div>
 <div class="container">
-    <div  class="table table-striped " >
-        <thead>
-            <tr><td><input type="text" placeholder="Search..." class="form-control"  id="search-box" [(ngModel)]="searchTerm"></td>
-            <td><a class="add"  routerLink="/add-department" mat-raised-button  color="primary">Add</a></td></tr></thead>
-    </div>
-    <div  class="table table-striped " >
+  <div class="table table-striped ">
+    <thead>
+      <tr>
+        <td><input type="text" placeholder="Search..." class="form-control" id="search-box" [(ngModel)]="searchTerm">
+        </td>
+        <td><a class="add" routerLink="/add-department" mat-raised-button color="primary">Add</a></td>
+      </tr>
+    </thead>
+  </div>
+  <div class="table table-striped ">
     <thead>
       <th>Id</th>
       <th>Name</th>
@@ -17,14 +21,14 @@
       <tr *ngFor="let dept of _departments ">
         <td>{{dept.Id}}</td>
         <td>{{dept.Name}}</td>
-        <td> 
-            <a routerLink="/add-department/{{dept.Id}}" mat-raised-button color="primary">Edit</a>
+        <td>
+          <a routerLink="/add-department/{{dept.Id}}" mat-raised-button color="primary">Edit</a>
         </td>
-        <td> 
-            <button (click)="onDelete(dept.Id)" color="warn" mat-stroked-button>Delete</button>
+        <td>
+          <button (click)="onDelete(dept.Id)" color="warn" mat-stroked-button>Delete</button>
         </td>
-        <td> 
-            <a routerLink="/view-department/{{dept.Id}}" mat-raised-button color="accent">View</a>
+        <td>
+          <a routerLink="/view-department/{{dept.Id}}" mat-raised-button color="accent">View</a>
         </td>
       </tr>
     </tbody>

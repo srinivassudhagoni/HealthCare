@@ -1,25 +1,29 @@
 <form #form="ngForm" (ngSubmit)="addDoctor(form)">
   <div class="form-group">
-      <label>Id</label><br>
-      <input type="text" name="Id" #Id="ngModel" [(ngModel)]="doctor.Id" class="form-cotrol" readonly>
+    <label>Id</label><br>
+    <input type="text" name="Id" #Id="ngModel" [(ngModel)]="doctor.Id" class="form-cotrol" readonly>
   </div>
   <div class="form-group">
-      <label>First Name</label>
-      <input type="text" name="FirstName" #FirstName="ngModel" [(ngModel)]="doctor.FirstName" class="form-control">
+    <label>First Name</label>
+    <input type="text" name="FirstName" #FirstName="ngModel" [(ngModel)]="doctor.FirstName" class="form-control">
   </div>
   <div class="form-group">
-      <label>Last Name</label>
-      <input type="text" name="LastName" #LastName="ngModel" [(ngModel)]="doctor.LastName" class="form-control">
+    <label>Last Name</label>
+    <input type="text" name="LastName" #LastName="ngModel" [(ngModel)]="doctor.LastName" class="form-control">
   </div>
   <div class="form-group">
-      <label>Specialization In</label>
-      <input type="text" name="SpecializedIn" #SpecializedIn="ngModel" [(ngModel)]="doctor.SpecializedIn" class="form-control">
+    <label>Specialization In</label>
+    <input type="text" name="SpecializedIn" #SpecializedIn="ngModel" [(ngModel)]="doctor.SpecializedIn"
+      class="form-control">
   </div>
-  <label >Select type</label><br>
-  <mat-radio-group    name="resourceGroup" [(ngModel)]="resourceGroup">
-      <mat-radio-button *ngFor="let resource of ResourceTypeList" [value]="resource"> {{resource.Name}}</mat-radio-button>
+  <mat-form-field>
+    <mat-select placeholder="Select Department" name="DefaultDepartment" [(ngModel)]="DefaultDepartment">
+      <mat-option *ngFor="let dept of DepartmentList" [value]="dept">{{ dept.Name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <label>Select type</label>
+  <mat-radio-group name="resourceGroup" [(ngModel)]="resourceGroup">
+    <mat-radio-button *ngFor="let resource of ResourceTypeList" [value]="resource"> {{resource.Name}}</mat-radio-button>
   </mat-radio-group><br>
-  <button color="primary" mat-raised-button >Save</button>
+  <button id="savebtn" color="primary" mat-raised-button>Save</button>
 </form>
-
-

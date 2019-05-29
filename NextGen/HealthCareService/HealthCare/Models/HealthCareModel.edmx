@@ -26,10 +26,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ResourceTypeId" Type="int" Nullable="false" StoreGeneratedPattern="None" />
+          <Property Name="ResourceTypeId" Type="int" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="SpecializedIn" Type="nvarchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="int" />
         </EntityType>
         <EntityType Name="DoctorAddress">
           <Key>
@@ -66,7 +67,15 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="150" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="255" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="255" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ResourceType">
           <Key>
@@ -103,6 +112,18 @@
             </Principal>
             <Dependent Role="Appointment">
               <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctor_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="DepartmentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -184,6 +205,10 @@
             <End Role="Patient" EntitySet="Patient" />
             <End Role="Appointment" EntitySet="Appointment" />
           </AssociationSet>
+          <AssociationSet Name="FK_Doctor_Department" Association="Self.FK_Doctor_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
           <AssociationSet Name="FK_Doctor_ResourceType" Association="Self.FK_Doctor_ResourceType">
             <End Role="ResourceType" EntitySet="ResourceType" />
             <End Role="Doctor" EntitySet="Doctor" />
@@ -218,7 +243,7 @@
           <Property Name="PatientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DoctorId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Doctor" Relationship="Self.FK_Appointment_Doctor" FromRole="Appointment" ToRole="Doctor" />
-          <NavigationProperty Name="Patient" Relationship="Self.FK_Appointment_Patient" FromRole="Appointment" ToRole="Patient" />
+          <NavigationProperty Name="Patient" Relationship="HealthCareModel.FK_Appointment_Patient" FromRole="Appointment" ToRole="Patient" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -241,6 +266,8 @@
           <NavigationProperty Name="DoctorAddresses" Relationship="Self.FK_DoctorAddress_Doctor" FromRole="Doctor" ToRole="DoctorAddress" />
           <NavigationProperty Name="Doctorleaves" Relationship="Self.FK_Doctorleave_Doctor" FromRole="Doctor" ToRole="Doctorleave" />
           <NavigationProperty Name="DoctorSpecializeds" Relationship="Self.FK_DoctorSpecialized_Doctor" FromRole="Doctor" ToRole="DoctorSpecialized" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <NavigationProperty Name="Department" Relationship="HealthCareModel.FK_Doctor_Department" FromRole="Doctor" ToRole="Department" />
         </EntityType>
         <EntityType Name="DoctorAddress">
           <Key>
@@ -271,16 +298,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="DoctorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SpecializedId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Doctor" Relationship="Self.FK_DoctorSpecialized_Doctor" FromRole="DoctorSpecialized" ToRole="Doctor" />
           <NavigationProperty Name="Specialization" Relationship="Self.FK_DoctorSpecialized_Specialization" FromRole="DoctorSpecialized" ToRole="Specialization" />
-        </EntityType>
-        <EntityType Name="Patient">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Appointments" Relationship="Self.FK_Appointment_Patient" FromRole="Patient" ToRole="Appointment" />
         </EntityType>
         <EntityType Name="ResourceType">
           <Key>
@@ -295,7 +313,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DoctorSpecializeds" Relationship="Self.FK_DoctorSpecialized_Specialization" FromRole="Specialization" ToRole="DoctorSpecialized" />
         </EntityType>
         <Association Name="FK_Appointment_Doctor">
           <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
@@ -306,18 +323,6 @@
             </Principal>
             <Dependent Role="Appointment">
               <PropertyRef Name="DoctorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Appointment_Patient">
-          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
-          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Patient">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Appointment">
-              <PropertyRef Name="PatientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -388,15 +393,10 @@
           <EntitySet Name="DoctorAddresses" EntityType="Self.DoctorAddress" />
           <EntitySet Name="Doctorleaves" EntityType="Self.Doctorleave" />
           <EntitySet Name="DoctorSpecializeds" EntityType="Self.DoctorSpecialized" />
-          <EntitySet Name="Patients" EntityType="Self.Patient" />
           <EntitySet Name="ResourceTypes" EntityType="Self.ResourceType" />
           <EntitySet Name="Specializations" EntityType="Self.Specialization" />
           <AssociationSet Name="FK_Appointment_Doctor" Association="Self.FK_Appointment_Doctor">
             <End Role="Doctor" EntitySet="Doctors" />
-            <End Role="Appointment" EntitySet="Appointments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Appointment_Patient" Association="Self.FK_Appointment_Patient">
-            <End Role="Patient" EntitySet="Patients" />
             <End Role="Appointment" EntitySet="Appointments" />
           </AssociationSet>
           <AssociationSet Name="FK_Doctor_ResourceType" Association="Self.FK_Doctor_ResourceType">
@@ -419,7 +419,56 @@
             <End Role="Specialization" EntitySet="Specializations" />
             <End Role="DoctorSpecialized" EntitySet="DoctorSpecializeds" />
           </AssociationSet>
+          <AssociationSet Name="FK_Doctor_Department" Association="HealthCareModel.FK_Doctor_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Doctor" EntitySet="Doctors" />
+          </AssociationSet>
+          <EntitySet Name="Patients" EntityType="HealthCareModel.Patient" />
+          <AssociationSet Name="FK_Appointment_Patient" Association="HealthCareModel.FK_Appointment_Patient">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Doctor_Department">
+          <End Type="HealthCareModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="HealthCareModel.Doctor" Role="Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appointments" Relationship="HealthCareModel.FK_Appointment_Patient" FromRole="Patient" ToRole="Appointment" />
+        </EntityType>
+        <Association Name="FK_Appointment_Patient">
+          <End Type="HealthCareModel.Patient" Role="Patient" Multiplicity="1" />
+          <End Type="HealthCareModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -447,6 +496,7 @@
           <EntitySetMapping Name="Doctors">
             <EntityTypeMapping TypeName="HealthCareModel.Doctor">
               <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ResourceTypeId" ColumnName="ResourceTypeId" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -488,14 +538,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Patients">
-            <EntityTypeMapping TypeName="HealthCareModel.Patient">
-              <MappingFragment StoreEntitySet="Patient">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ResourceTypes">
             <EntityTypeMapping TypeName="HealthCareModel.ResourceType">
               <MappingFragment StoreEntitySet="ResourceType">
@@ -509,6 +551,22 @@
               <MappingFragment StoreEntitySet="Specialization">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="HealthCareModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

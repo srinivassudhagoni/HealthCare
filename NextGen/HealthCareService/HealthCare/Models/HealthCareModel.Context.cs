@@ -31,8 +31,8 @@ namespace HealthCare.Models
         public virtual DbSet<DoctorAddress> DoctorAddresses { get; set; }
         public virtual DbSet<Doctorleave> Doctorleaves { get; set; }
         public virtual DbSet<DoctorSpecialized> DoctorSpecializeds { get; set; }
-        public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<ResourceType> ResourceTypes { get; set; }
         public virtual DbSet<Specialization> Specializations { get; set; }
+        public virtual DbSet<Patient> Patients { get; set; }
     }
 }

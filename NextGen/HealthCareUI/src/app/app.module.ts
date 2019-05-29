@@ -13,6 +13,9 @@ import { ListDoctorComponent } from './list-doctor/list-doctor.component';
 import { AddDoctorComponent } from './add-doctor/add-doctor.component';
 import { ViewDoctorComponent } from './view-doctor/view-doctor.component';
 import { ViewDepartmentComponent } from './view-department/view-department.component';
+import { AppointmentComponent } from './appointment/appointment.component';
+
+
 
 
 @NgModule({
@@ -23,7 +26,9 @@ import { ViewDepartmentComponent } from './view-department/view-department.compo
     ListDoctorComponent,
     AddDoctorComponent,
     ViewDoctorComponent,
-    ViewDepartmentComponent
+    ViewDepartmentComponent,
+    AppointmentComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -32,6 +37,7 @@ import { ViewDepartmentComponent } from './view-department/view-department.compo
     MaterialModule,
     FormsModule,
     HttpClientModule
+    
   ],
   providers: [DepartmentService],
   bootstrap: [AppComponent]

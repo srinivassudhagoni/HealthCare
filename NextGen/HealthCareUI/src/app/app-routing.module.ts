@@ -6,10 +6,12 @@ import { ListDoctorComponent } from './list-doctor/list-doctor.component';
 import { AddDoctorComponent } from './add-doctor/add-doctor.component';
 import { ViewDoctorComponent } from './view-doctor/view-doctor.component';
 import { ViewDepartmentComponent } from './view-department/view-department.component';
+import { AppointmentComponent } from './appointment/appointment.component';
 
 
 export const routes: Routes = [
-  {path:'',component:ListDepartmentComponent, pathMatch:'full'},
+  //{path:'',component:ListDepartmentComponent, pathMatch:'full'},
+  {path:'',component:AppointmentComponent, pathMatch:'full'},
   {path:'list-department',component:ListDepartmentComponent},
   {path:'add-department',component:AddDepartmentComponent},
   {path:'add-department/:Id',component:AddDepartmentComponent},
@@ -17,7 +19,8 @@ export const routes: Routes = [
   {path:'add-doctor',component:AddDoctorComponent},
   {path:'add-doctor/:Id',component:AddDoctorComponent},
   {path:'view-doctor/:Id',component:ViewDoctorComponent},
-  {path:'view-department/:Id',component:ViewDepartmentComponent}
+  {path:'view-department/:Id',component:ViewDepartmentComponent},
+  {path:'appointment',component:AppointmentComponent}
   ];
 
 @NgModule({

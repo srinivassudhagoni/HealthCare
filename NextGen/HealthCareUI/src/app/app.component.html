@@ -1,12 +1,14 @@
-<div class="container">
+<div>
   <!-- <nav>
   <a routerLink="/list-department" mat-raised-button color="primary">List Department</a>
   <a routerLink="/add-department" mat-raised-button color="primary">Add Department</a>
   </nav>   -->
   <!-- <app-list-department></app-list-department> -->
- <div class="nav nav-bar">
-  <a routerLink="./list-department" mat-raised-button color="primary">Department</a>
-  <a routerLink="./list-doctor" mat-raised-button color="primary">Doctor</a>
- </div>
+ <mat-toolbar color="primary">
+   <mat-toolbar-row  >
+  <a routerLink="./list-department" mat-raised-button >Department</a>
+  <a routerLink="./list-doctor" mat-raised-button >Doctor</a>
+</mat-toolbar-row>
+ </mat-toolbar>
   <router-outlet></router-outlet>
 </div>

@@ -28,9 +28,10 @@ namespace HealthCare.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string SpecializedIn { get; set; }
+        public Nullable<int> DepartmentId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Appointment> Appointments { get; set; }       
+        public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual ResourceType ResourceType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoctorAddress> DoctorAddresses { get; set; }
@@ -38,5 +39,6 @@ namespace HealthCare.Models
         public virtual ICollection<Doctorleave> Doctorleaves { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoctorSpecialized> DoctorSpecializeds { get; set; }
+        public virtual Department Department { get; set; }
     }
 }

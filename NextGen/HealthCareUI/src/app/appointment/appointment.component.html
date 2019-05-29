@@ -1,0 +1,117 @@
+<mat-horizontal-stepper>
+   <mat-step [stepControl]="firstFromGroup">
+      <form>
+         <ng-template matStepLabel>Fill out the form </ng-template>
+         <h3>Select Department</h3>
+         <mat-form-field>
+            <mat-label>Department</mat-label>
+            <mat-select>
+               <mat-option >
+               </mat-option>
+            </mat-select>
+         </mat-form-field>
+         <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+         </mat-form-field>
+         <div>
+            <button mat-flat-button color="primary" matStepperNext>Next</button>
+         </div>
+      </form>
+   </mat-step>
+   <mat-step [stepControl]="secondFromGroup">
+      <form>
+         <ng-template matStepLabel>Fill out the details </ng-template>
+         <table class="table" >
+            <div class="form-group ">
+               <tr>
+                  <td class="col"> 
+                     <!-- <label>Id</label> -->
+                     <input type="text" class="form-control" placeholder="Id">
+                  </td>
+                  <td class="col"> 
+                     <!-- <label>First Name</label> -->
+                     <input type="text" class="form-control" placeholder="First Name">
+                  </td>
+               </tr>
+               <tr>
+                     <td class="col"> 
+                     <!-- <label>Last Name</label> -->
+                     <input type="text" class="form-control" placeholder="Last Name">
+                  </td>
+                  <td class="col"> 
+                     <!-- <label>Email</label> -->
+                     <input type="email" class="form-control" placeholder="Email">
+                  </td>
+               </tr>
+               <tr>
+                     <td class="col"> 
+                     <label>Mobile</label>
+                     <input type="text" class="form-control">
+                  </td>
+                  <td class="col"> 
+                     <label>AddressLine1</label>
+                     <input type="text" class="form-control">
+                  </td>
+               </tr>
+               <tr>
+                     <td class="col"> 
+                     <label>AddressLine2</label>
+                     <input type="text" class="form-control">
+                  </td>
+                  <td class="col"> 
+                     <label>City</label>
+                     <input type="text" class="form-control">
+                  </td>
+               </tr>
+               <tr>
+                     <td class="col"> 
+                     <label>State</label>
+                     <input type="text" class="form-control">
+                  </td>
+                  <td class="col"> 
+                     <label>Country</label>
+                     <input type="text" class="form-control">
+                  </td>
+               </tr>
+               <tr>
+                     <td class="col"> 
+                       <button mat-flat-button color="primary" matStepperPrevious>Back</button></td>
+                       <td class="col"> 
+                       <button mat-flat-button color="primary" matStepperNext>Next</button></td>
+               </tr>
+            </div>
+         </table>         
+      </form>
+   </mat-step>
+   <mat-step [stepControl]="thirdFromGroup">
+      <form>
+         <ng-template matStepLabel>Payment details</ng-template>
+         <table>
+               <div class="form-group ">
+                  <tr>
+                     <td> 
+                        <label>Card Number</label>
+                        <input type="text" class="form-control">
+                     </td>
+                     <td>
+                        <label>Expiration Date</label>
+                        <input type="text" class="form-control">
+                     </td>
+                  </tr>
+                  <tr>
+                        <td> 
+                           <label>Cvv</label>
+                           <input type="text" class="form-control">
+                        </td>
+                        <td>
+                           <label>Name on the card</label>
+                           <input type="text" class="form-control">
+                        </td>
+                     </tr>
+               </div>
+         </table>         
+      </form>
+   </mat-step>
+</mat-horizontal-stepper>

@@ -18,7 +18,6 @@ namespace HealthCare.Models
         public int DoctorId { get; set; }
         public int SpecializedId { get; set; }
     
-        public virtual Doctor Doctor { get; set; }
         public virtual Specialization Specialization { get; set; }
     }
 }

@@ -29,6 +29,19 @@ namespace HealthCare.Controllers
             return query.ToList();
         }
 
+        [HttpPost]
+        [ActionName("GetListByDepartment")]
+        public ICollection<Doctor> GetListByDepartment(GetListByDepartmentRequest request)
+        {
+            var query = db.Doctors.AsQueryable();
+
+            if (request.DepartmentId == 0) return query.ToList();
+
+            query = query.Where(x => x.DepartmentId == request.DepartmentId);
+
+            return query.ToList();
+        }
+
         [HttpGet]
         [ActionName("GetList")]
         public IQueryable<Doctor> GetList()
@@ -67,6 +80,7 @@ namespace HealthCare.Controllers
                 doctorEntity.LastName = doctor.LastName;
                 doctorEntity.ResourceType = new ResourceType { Id = 1, Name = "FullTime" };
                 doctorEntity.SpecializedIn = doctor.SpecializedIn;
+                doctorEntity.DepartmentId = doctor.DepartmentId;
 
             }
 

@@ -18,7 +18,5 @@ namespace HealthCare.Models
         public int DoctorId { get; set; }
         public Nullable<System.DateTime> From { get; set; }
         public Nullable<System.DateTime> To { get; set; }
-    
-        public virtual Doctor Doctor { get; set; }
     }
 }

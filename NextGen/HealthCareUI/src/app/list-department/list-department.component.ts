@@ -9,15 +9,15 @@ import { Department } from '../shared/department.model';
   styleUrls: ['./list-department.component.css']
 })
 export class ListDepartmentComponent implements OnInit {
- _searchString: string;
+  _searchString: string;
   _departments: Department[];
   constructor(private Departmentservice: DepartmentService) { }
-  get searchTerm():string{
+  get searchTerm(): string {
     return this._searchString;
   }
-  set searchTerm(value: string){
-     this._searchString=value;
-     this.onSearch(this._searchString);
+  set searchTerm(value: string) {
+    this._searchString = value;
+    this.onSearch(this._searchString);
   }
 
   ngOnInit() {
@@ -30,25 +30,25 @@ export class ListDepartmentComponent implements OnInit {
     //   });
   }
 
-      getList(){
+  getList() {
 
-        this.Departmentservice.getDepartmentList().subscribe((data: Department[]) => {
-          this._departments = data;
-            });
-      }
-
-       onSearch(searchString: string){
-
-        this.Departmentservice.getList(searchString).subscribe((data: Department[]) => {
-          this._departments = data;
-            });
-      }
-
-      onDelete(id: number){
-
-        this.Departmentservice.deleteDepartmentById(id).subscribe(()=>        
-        this.getList()
-        );
+    this.Departmentservice.getDepartmentList().subscribe((data: Department[]) => {
+      this._departments = data;
+    });
   }
-  
+
+  onSearch(searchString: string) {
+
+    this.Departmentservice.getList(searchString).subscribe((data: Department[]) => {
+      this._departments = data;
+    });
+  }
+
+  onDelete(id: number) {
+
+    this.Departmentservice.deleteDepartmentById(id).subscribe(() =>
+      this.getList()
+    );
+  }
+
 }

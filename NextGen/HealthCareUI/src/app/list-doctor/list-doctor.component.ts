@@ -9,21 +9,21 @@ import { Doctor } from '../shared/department.model';
   styleUrls: ['./list-doctor.component.css']
 })
 export class ListDoctorComponent implements OnInit {
-  Doctors:Doctor[];
+  Doctors: Doctor[];
   _searchString: string;
 
-  constructor(private _doctorService: DoctorService ) { }
+  constructor(private _doctorService: DoctorService) { }
 
-  get searchTerm(): string{
+  get searchTerm(): string {
     return this._searchString;
   }
-  set searchTerm(value: string){
-    this._searchString=value;
+  set searchTerm(value: string) {
+    this._searchString = value;
     this.searchList(this._searchString);
   }
 
-  searchList(searchString: string){
-    this._doctorService.searchList(searchString).subscribe((search: Doctor[])=>this.Doctors = search);
+  searchList(searchString: string) {
+    this._doctorService.searchList(searchString).subscribe((search: Doctor[]) => this.Doctors = search);
   }
 
   ngOnInit() {
@@ -31,12 +31,12 @@ export class ListDoctorComponent implements OnInit {
   }
 
   getList() {
-    this._doctorService.getList().subscribe((data: Doctor[]) => {this.Doctors= data});
+    this._doctorService.getList().subscribe((data: Doctor[]) => { this.Doctors = data });
   }
 
-  onDelete(Id:number){
+  onDelete(Id: number) {
     alert(Id);
-    this._doctorService.deleteById(Id).subscribe(()=>this.getList());
+    this._doctorService.deleteById(Id).subscribe(() => this.getList());
   }
 
 }

@@ -1,23 +1,24 @@
 <div class="mat-headline">List of Doctors</div>
 <div class="container">
-   
-    <div  class="table table-striped " > 
-        <thead>
-            <tr>
-            <td><input type="text" placeholder="Search..." class="form-control"  id="search-box" [(ngModel)]="searchTerm"></td>
-            <td><a class="add"  routerLink="/add-doctor" mat-raised-button  color="primary">Add</a></td>
-          </tr>
-          </thead>
-        </div>    
-  <div  class="table table-striped " > 
+
+  <div class="table table-striped ">
     <thead>
-      <th >Id</th>
-      <th > Name</th>
-      <th >Specialization</th>
-      <th >Availability</th>
-      <th >Edit</th>
-      <th >Delete</th>
-      <th >View</th>
+      <tr>
+        <td><input type="text" placeholder="Search..." class="form-control" id="search-box" [(ngModel)]="searchTerm">
+        </td>
+        <td><a class="add" routerLink="/add-doctor" mat-raised-button color="primary">Add</a></td>
+      </tr>
+    </thead>
+  </div>
+  <div class="table table-striped ">
+    <thead>
+      <th>Id</th>
+      <th> Name</th>
+      <th>Specialization</th>
+      <th>Availability</th>
+      <th>Edit</th>
+      <th>Delete</th>
+      <th>View</th>
     </thead>
     <tbody>
       <tr *ngFor="let doc of Doctors ">
@@ -25,11 +26,11 @@
         <td>{{doc.FirstName}} {{doc.LastName}}</td>
         <td>{{doc.SpecializedIn}}</td>
         <td>{{doc.ResourceType.Name}}</td>
-        <td> 
-            <a routerLink="/add-doctor/{{doc.Id}}" mat-raised-button color="primary">Edit</a>
+        <td>
+          <a routerLink="/add-doctor/{{doc.Id}}" mat-raised-button color="primary">Edit</a>
         </td>
-        <td> 
-            <button (click)="onDelete(doc.Id)" color="warn" mat-stroked-button>Delete</button>
+        <td>
+          <button (click)="onDelete(doc.Id)" color="warn" mat-stroked-button>Delete</button>
         </td>
         <td><a routerLink="/view-doctor/{{doc.Id}}" mat-raised-button color="accent">View</a>
         </td>

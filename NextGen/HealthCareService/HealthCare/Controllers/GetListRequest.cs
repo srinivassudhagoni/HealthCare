@@ -2,6 +2,11 @@
 {
     public class GetListRequest
     {
-        public string SearchString { get; set; }
+        public string SearchString { get; set; }        
+    }
+
+    public class GetListByDepartmentRequest
+    {        
+        public int DepartmentId { get; set; }
     }
 }

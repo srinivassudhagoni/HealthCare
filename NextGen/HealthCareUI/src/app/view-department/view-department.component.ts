@@ -8,18 +8,19 @@ import { Department } from '../shared/department.model';
   styleUrls: ['./view-department.component.css']
 })
 export class ViewDepartmentComponent implements OnInit {
-  viewdept:Department;
-  view:number;
+  viewdept: Department;
+  view: number;
 
-  constructor(private departmentservice: DepartmentService,private route: ActivatedRoute) { }
+  constructor(private departmentservice: DepartmentService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.viewdept = new Department();
     this.view = this.route.snapshot.params['Id'];
-    if(this.view === undefined){ return; }
-    this.departmentservice.getDepartmentById(this.view).subscribe((dept: Department)=>{
-      this.viewdept = dept ;})
-    }
-    
-
+    if (this.view === undefined) { return; }
+    this.departmentservice.getDepartmentById(this.view).subscribe((dept: Department) => {
+      this.viewdept = dept;
+    })
   }
+
+
+}

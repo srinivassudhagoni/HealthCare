@@ -184,6 +184,9 @@
     <Compile Include="Models\Appointment.cs">
       <DependentUpon>HealthCareModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AppointmentSlot.cs">
+      <DependentUpon>HealthCareModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CreditCardPayment.cs">
       <DependentUpon>HealthCareModel.tt</DependentUpon>
     </Compile>
@@ -216,6 +219,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HealthCareModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OpenAppointmentSlot.cs">
+      <DependentUpon>HealthCareModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Patient.cs">
       <DependentUpon>HealthCareModel.tt</DependentUpon>

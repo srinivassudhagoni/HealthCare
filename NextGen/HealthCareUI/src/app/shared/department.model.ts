@@ -15,7 +15,8 @@ export class Doctor {
     SpecializedIn: string;
     ResourceTypeId: number;
     DepartmentId: number;
-    Department : Department;
+    Department: Department;
+    OpenAppointmentSlots: OpenAppointmentSlot[]
 }
 
 export class ResourceType {
@@ -34,4 +35,11 @@ export class Patient {
     City: string;
     State: string;
     Country: string;
+}
+
+export class OpenAppointmentSlot {
+    Id: number;
+    From: string;
+    To: string;
+    DoctorId: number;
 }

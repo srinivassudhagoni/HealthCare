@@ -15,6 +15,7 @@ namespace HealthCare.Controllers
     public class AppointmentController : ApiController
     {
         private HealthCareEntities db = new HealthCareEntities();
+        private ICollection<OpenAppointmentSlot> _AvailableSolts;
 
         // GET: api/Appointments 
         [HttpPost]
@@ -89,6 +90,76 @@ namespace HealthCare.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = request.Appointment.Id }, request.Appointment);
         }
+
+        [HttpPost]
+        [ActionName("GetDoctorListByDepartment")]
+        public ICollection<Doctor> GetDoctorListByDepartment(GetListByDepartmentRequest request)
+        {
+            var query = db.Doctors.AsQueryable();
+
+            if (request.DepartmentId == 0) return query.ToList();
+
+            query = query.Where(x => x.DepartmentId == request.DepartmentId);
+
+            var doctorList = query.ToList();
+
+            return getOpenSlotByDoctorPerGivenDate(doctorList,
+                  new GetAppointmentSlotListRequest { AppointmentDate = request.AppointmentDate ?? DateTime.Now.Date.AddDays(1) },
+               doctorList.Select(x => x.Id).ToList());
+
+
+        }
+
+        // GET: api/Doctors 
+        [HttpPost]
+        [ActionName("GetAppointmentSlotList")]
+        public ICollection<Doctor> GetAppointmentSlotList(GetAppointmentSlotListRequest request)
+        {
+            var doctorList = db.Doctors.Where(x => x.Id == request.DoctorId).ToList();
+            return getOpenSlotByDoctorPerGivenDate(doctorList, request);
+        }
+
+        private ICollection<Doctor> getOpenSlotByDoctorPerGivenDate(ICollection<Doctor> doctorList, GetAppointmentSlotListRequest request, ICollection<int> doctorIdList = null)
+        {
+
+            var query = db.Appointments.Where(x => x.ConsultationTime.Value != null && x.ConsultationTime.Value == request.AppointmentDate);
+
+            query = doctorIdList != null ?
+                query = query.Where(x => doctorIdList.Contains(x.DoctorId)) : query.Where(x => x.DoctorId == request.DoctorId);
+
+            var doctorAppointmentList = query.ToList();
+
+            var appointmentSlotList = db.AppointmentSlots.ToList();
+
+            var availableSolts = filterAvailableSolts(doctorAppointmentList, appointmentSlotList);
+
+            return doctorList.Select(x => new Doctor
+            {
+                Id = x.Id,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                SpecializedIn = x.SpecializedIn,
+                DepartmentId = x.DepartmentId,
+                OpenAppointmentSlots = getSlotList(availableSolts, x.Id)
+            }).ToList();
+        }
+
+        private ICollection<OpenAppointmentSlot> getSlotList(ICollection<OpenAppointmentSlot> availableSolts, int id)
+        {
+            var slots = availableSolts.Where(x => x.DoctorId.HasValue && x.DoctorId.Value == id).ToList();
+
+            return slots.Any() ? slots : availableSolts;
+        }
+
+        private ICollection<OpenAppointmentSlot> filterAvailableSolts(List<Appointment> doctorAppointmentList, List<AppointmentSlot> appointmentSlotList)
+        {
+
+            return appointmentSlotList.GroupJoin(doctorAppointmentList,
+                   slot => slot.Id,
+                   app => app.AppointmentSlotId, (slot, app) => new OpenAppointmentSlot { Id = slot.Id, From = slot.From, To = slot.To, DoctorId = app.FirstOrDefault()?.DoctorId }).ToList();
+
+        }
+
 
         [HttpDelete]
         // DELETE: api/Appointments/5

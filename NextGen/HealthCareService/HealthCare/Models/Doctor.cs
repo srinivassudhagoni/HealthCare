@@ -20,6 +20,7 @@ namespace HealthCare.Models
             this.DoctorAddresses = new HashSet<DoctorAddress>();
             this.Doctorleaves = new HashSet<Doctorleave>();
             this.DoctorSpecializeds = new HashSet<DoctorSpecialized>();
+            this.OpenAppointmentSlots = new HashSet<OpenAppointmentSlot>();
         }
     
         public int Id { get; set; }
@@ -37,5 +38,7 @@ namespace HealthCare.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoctorSpecialized> DoctorSpecializeds { get; set; }
         public virtual Department Department { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OpenAppointmentSlot> OpenAppointmentSlots { get; set; }
     }
 }

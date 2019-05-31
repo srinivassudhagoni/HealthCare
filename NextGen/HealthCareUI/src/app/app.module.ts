@@ -14,6 +14,7 @@ import { AddDoctorComponent } from './add-doctor/add-doctor.component';
 import { ViewDoctorComponent } from './view-doctor/view-doctor.component';
 import { ViewDepartmentComponent } from './view-department/view-department.component';
 import { AppointmentComponent } from './appointment/appointment.component';
+import { AvailableslotComponent } from './appointment/availableslot/availableslot.component';
 
 
 
@@ -27,7 +28,8 @@ import { AppointmentComponent } from './appointment/appointment.component';
     AddDoctorComponent,
     ViewDoctorComponent,
     ViewDepartmentComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    AvailableslotComponent
     
   ],
   imports: [

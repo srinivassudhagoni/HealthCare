@@ -10,18 +10,13 @@
                </mat-option>
             </mat-select>
          </mat-form-field>
-         <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="consultationDate"
-               name="ConsultationTime">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-         </mat-form-field>
          <div class="table table-striped">
             <thead>
-               <th>#</th>
+               <th>Select</th>
                <th>Id</th>
                <th> Name</th>
                <th>Specialization</th>
+               <th>AvailableSlot</th>
             </thead>
             <tbody>
                <tr *ngFor="let doc of doctorList">
@@ -33,12 +28,12 @@
                   <td>{{doc.Id}}</td>
                   <td>{{doc.FirstName}} {{doc.LastName}}</td>
                   <td>{{doc.SpecializedIn}}</td>
+                  <td><button mat-raised-button color="primary" (click)="openDialog(doc.Id)">AvailableSlot</button></td>
                </tr>
             </tbody>
+            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
          </div>
-         <div class="btn">
-            <button mat-flat-button color="primary" matStepperNext>Next</button>
-         </div>
+         <button class="btn" mat-flat-button color="primary" matStepperNext>Next</button>
       </form>
    </mat-step>
    <mat-step [stepControl]="secondFromGroup">
@@ -109,31 +104,94 @@
    <mat-step [stepControl]="thirdFromGroup">
       <form>
          <ng-template matStepLabel>Payment details</ng-template><br>
-         <table class="table">
-            <div class="form-group ">
-               <tr>
-                  <td class="col">
-                     <input type="text" name="CardNumber" #CardNumber="ngModel" [(ngModel)]="payment.CardNumber"
-                        class="form-control" placeholder="Card Number">
-                  </td>
-                  <td class="col">
-                     <input type="text" name="ExpirationDate" #ExpirationDate="ngModel"
-                        [(ngModel)]="payment.ExpirationDate" class="form-control" placeholder="Expiration Date">
-                  </td>
-               </tr>
-               <tr>
-                  <td class="col">
-                     <input type="text" name="CVV" #CVV="ngModel" [(ngModel)]="payment.CVV" class="form-control"
-                        placeholder="Cvv">
-                  </td>
-                  <td class="col">
-                     <input type="text" name="CustomerName" #CustomerName="ngModel"
-                        [(ngModel)]="payment.CustomerName" class="form-control" placeholder="Name on the card">
-                  </td>
-               </tr>
-               <tr><button mat-raised-button color="primary" (click)="saveAppointment()">Save</button></tr>
-            </div>
-         </table>
+         <mat-accordion class="example-headers-align">
+            <mat-expansion-panel>
+               <mat-expansion-panel-header>
+                  <mat-panel-title>
+                     CreditCard
+                  </mat-panel-title>
+               </mat-expansion-panel-header>
+               <mat-panel-description>
+                  <table class="table">
+                     <div class="form-group ">
+                        <tr>
+                           <td class="col">
+                              <input type="text" name="CardNumber" #CardNumber="ngModel"
+                                 [(ngModel)]="payment.CardNumber" class="form-control" placeholder="Card Number">
+                           </td>
+                           <td class="col">
+                              <input type="text" name="ExpirationDate" #ExpirationDate="ngModel"
+                                 [(ngModel)]="payment.ExpirationDate" class="form-control"
+                                 placeholder="Expiration Date">
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="col">
+                              <input type="text" name="CVV" #CVV="ngModel" [(ngModel)]="payment.CVV"
+                                 class="form-control" placeholder="Cvv">
+                           </td>
+                           <td class="col">
+                              <input type="text" name="CustomerName" #CustomerName="ngModel"
+                                 [(ngModel)]="payment.CustomerName" class="form-control" placeholder="Name on the card">
+                           </td>
+                        </tr>
+                        <div><button class="button" mat-raised-button color="primary"
+                              (click)="saveAppointment()">Pay</button></div>
+                     </div>
+                  </table>
+               </mat-panel-description>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+               <mat-expansion-panel-header>
+                  <mat-panel-title>
+                     DebitCard
+                  </mat-panel-title>
+               </mat-expansion-panel-header>
+               <mat-panel-description>
+                  <table class="table">
+                     <div class="form-group ">
+                        <tr>
+                           <td class="col">
+                              <input type="text" name="CardNumber" #CardNumber="ngModel"
+                                 [(ngModel)]="payment.CardNumber" class="form-control" placeholder="Card Number">
+                           </td>
+                           <td class="col">
+                              <input type="text" name="ExpirationDate" #ExpirationDate="ngModel"
+                                 [(ngModel)]="payment.ExpirationDate" class="form-control"
+                                 placeholder="Expiration Date">
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="col">
+                              <input type="text" name="CVV" #CVV="ngModel" [(ngModel)]="payment.CVV"
+                                 class="form-control" placeholder="Cvv">
+                           </td>
+                           <td class="col">
+                              <input type="text" name="CustomerName" #CustomerName="ngModel"
+                                 [(ngModel)]="payment.CustomerName" class="form-control" placeholder="Name on the card">
+                           </td>
+                        </tr>
+                        <div><button class="button" mat-raised-button color="primary"
+                              (click)="saveAppointment()">Pay</button></div>
+                     </div>
+                  </table>
+               </mat-panel-description>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+               <mat-expansion-panel-header>
+                  <mat-panel-title>
+                     OfflinePayment
+                  </mat-panel-title>
+                  <mat-panel-description>
+                     CashMode of payment
+                  </mat-panel-description>
+               </mat-expansion-panel-header>
+               <mat-panel-description>
+                  <h5 class="cash">You can pay fees during your visit to the hospital!</h5>
+               </mat-panel-description>
+
+            </mat-expansion-panel>
+         </mat-accordion>
       </form>
    </mat-step>
 </mat-horizontal-stepper>

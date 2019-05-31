@@ -35,5 +35,7 @@ namespace HealthCare.Models
         public virtual DbSet<Specialization> Specializations { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<CreditCardPayment> CreditCardPayments { get; set; }
+        public virtual DbSet<AppointmentSlot> AppointmentSlots { get; set; }
+        public virtual DbSet<OpenAppointmentSlot> OpenAppointmentSlots { get; set; }
     }
 }

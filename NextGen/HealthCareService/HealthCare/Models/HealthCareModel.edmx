@@ -14,6 +14,15 @@
           <Property Name="PatientId" Type="int" Nullable="false" />
           <Property Name="DoctorId" Type="int" Nullable="false" />
           <Property Name="CreditCardPaymentId" Type="int" />
+          <Property Name="AppointmentSlotId" Type="int" />
+        </EntityType>
+        <EntityType Name="AppointmentSlot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="From" Type="time" Precision="3" />
+          <Property Name="To" Type="time" Precision="3" />
         </EntityType>
         <EntityType Name="CreditCardPayment">
           <Key>
@@ -73,6 +82,15 @@
           <Property Name="DoctorId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="SpecializedId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="OpenAppointmentSlot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="From" Type="time" Precision="3" />
+          <Property Name="To" Type="time" Precision="3" />
+          <Property Name="DoctorId" Type="int" />
+        </EntityType>
         <EntityType Name="Patient">
           <Key>
             <PropertyRef Name="Id" />
@@ -102,6 +120,18 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Appointment_AppointmentSlot">
+          <End Role="AppointmentSlot" Type="Self.AppointmentSlot" Multiplicity="0..1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppointmentSlot">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="AppointmentSlotId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Appointment_CreditCardPayment">
           <End Role="CreditCardPayment" Type="Self.CreditCardPayment" Multiplicity="0..1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
@@ -210,17 +240,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OpenAppointmentSlot_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="OpenAppointmentSlot" Type="Self.OpenAppointmentSlot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OpenAppointmentSlot">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HealthCareModelStoreContainer">
           <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppointmentSlot" EntityType="Self.AppointmentSlot" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CreditCardPayment" EntityType="Self.CreditCardPayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DoctorAddress" EntityType="Self.DoctorAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Doctorleave" EntityType="Self.Doctorleave" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DoctorSpecialized" EntityType="Self.DoctorSpecialized" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OpenAppointmentSlot" EntityType="Self.OpenAppointmentSlot" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResourceType" EntityType="Self.ResourceType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Specialization" EntityType="Self.Specialization" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Appointment_AppointmentSlot" Association="Self.FK_Appointment_AppointmentSlot">
+            <End Role="AppointmentSlot" EntitySet="AppointmentSlot" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
           <AssociationSet Name="FK_Appointment_CreditCardPayment" Association="Self.FK_Appointment_CreditCardPayment">
             <End Role="CreditCardPayment" EntitySet="CreditCardPayment" />
             <End Role="Appointment" EntitySet="Appointment" />
@@ -257,6 +305,10 @@
             <End Role="Specialization" EntitySet="Specialization" />
             <End Role="DoctorSpecialized" EntitySet="DoctorSpecialized" />
           </AssociationSet>
+          <AssociationSet Name="FK_OpenAppointmentSlot_Doctor" Association="Self.FK_OpenAppointmentSlot_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="OpenAppointmentSlot" EntitySet="OpenAppointmentSlot" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -274,6 +326,8 @@
           <NavigationProperty Name="Patient" Relationship="HealthCareModel.FK_Appointment_Patient" FromRole="Appointment" ToRole="Patient" />
           <Property Name="CreditCardPaymentId" Type="Int32" />
           <NavigationProperty Name="CreditCardPayment" Relationship="HealthCareModel.FK_Appointment_CreditCardPayment" FromRole="Appointment" ToRole="CreditCardPayment" />
+          <Property Name="AppointmentSlotId" Type="Int32" />
+          <NavigationProperty Name="AppointmentSlot" Relationship="HealthCareModel.FK_Appointment_AppointmentSlot" FromRole="Appointment" ToRole="AppointmentSlot" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -297,6 +351,7 @@
           <NavigationProperty Name="DoctorSpecializeds" Relationship="Self.FK_DoctorSpecialized_Doctor" FromRole="Doctor" ToRole="DoctorSpecialized" />
           <Property Name="DepartmentId" Type="Int32" />
           <NavigationProperty Name="Department" Relationship="HealthCareModel.FK_Doctor_Department" FromRole="Doctor" ToRole="Department" />
+          <NavigationProperty Name="OpenAppointmentSlots" Relationship="HealthCareModel.FK_OpenAppointmentSlot_Doctor" FromRole="Doctor" ToRole="OpenAppointmentSlot" />
         </EntityType>
         <EntityType Name="DoctorAddress">
           <Key>
@@ -462,6 +517,16 @@
             <End Role="CreditCardPayment" EntitySet="CreditCardPayments" />
             <End Role="Appointment" EntitySet="Appointments" />
           </AssociationSet>
+          <EntitySet Name="AppointmentSlots" EntityType="HealthCareModel.AppointmentSlot" />
+          <AssociationSet Name="FK_Appointment_AppointmentSlot" Association="HealthCareModel.FK_Appointment_AppointmentSlot">
+            <End Role="AppointmentSlot" EntitySet="AppointmentSlots" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <EntitySet Name="OpenAppointmentSlots" EntityType="HealthCareModel.OpenAppointmentSlot" />
+          <AssociationSet Name="FK_OpenAppointmentSlot_Doctor" Association="HealthCareModel.FK_OpenAppointmentSlot_Doctor">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="OpenAppointmentSlot" EntitySet="OpenAppointmentSlots" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Doctor_Department">
           <End Type="HealthCareModel.Department" Role="Department" Multiplicity="0..1" />
@@ -524,6 +589,47 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AppointmentSlot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="From" Type="Time" Precision="3" />
+          <Property Name="To" Type="Time" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Appointment_AppointmentSlot">
+          <End Type="HealthCareModel.AppointmentSlot" Role="AppointmentSlot" Multiplicity="0..1" />
+          <End Type="HealthCareModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppointmentSlot">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="AppointmentSlotId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OpenAppointmentSlot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="From" Type="Time" Precision="3" />
+          <Property Name="To" Type="Time" Precision="3" />
+          <Property Name="DoctorId" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_OpenAppointmentSlot_Doctor">
+          <End Type="HealthCareModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+          <End Type="HealthCareModel.OpenAppointmentSlot" Role="OpenAppointmentSlot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OpenAppointmentSlot">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -533,6 +639,7 @@
           <EntitySetMapping Name="Appointments">
             <EntityTypeMapping TypeName="HealthCareModel.Appointment">
               <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="AppointmentSlotId" ColumnName="AppointmentSlotId" />
                 <ScalarProperty Name="CreditCardPaymentId" ColumnName="CreditCardPaymentId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ConsultationTime" ColumnName="ConsultationTime" />
@@ -633,6 +740,25 @@
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
                 <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppointmentSlots">
+            <EntityTypeMapping TypeName="HealthCareModel.AppointmentSlot">
+              <MappingFragment StoreEntitySet="AppointmentSlot">
+                <ScalarProperty Name="To" ColumnName="To" />
+                <ScalarProperty Name="From" ColumnName="From" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OpenAppointmentSlots">
+            <EntityTypeMapping TypeName="HealthCareModel.OpenAppointmentSlot">
+              <MappingFragment StoreEntitySet="OpenAppointmentSlot">
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="To" ColumnName="To" />
+                <ScalarProperty Name="From" ColumnName="From" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -1,0 +1,12 @@
+.calendar-wrapper{
+    width: 350px;height: 350px;
+}
+.Close{
+    margin-left: 350px;
+}
+.color{
+    background-color: skyblue;
+}
+.doctor{
+    background-color: lightgreen;
+}

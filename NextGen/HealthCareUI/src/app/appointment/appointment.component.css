@@ -10,4 +10,16 @@ table{
      width: 50%;
 }
 
-
+.button {
+    margin-left:310px; 
+    }
+.btn{
+    
+    margin-left: 250px;
+}
+.cash{
+    margin-left: 350px ;
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+}
+  

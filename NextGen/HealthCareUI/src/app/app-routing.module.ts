@@ -7,6 +7,7 @@ import { AddDoctorComponent } from './add-doctor/add-doctor.component';
 import { ViewDoctorComponent } from './view-doctor/view-doctor.component';
 import { ViewDepartmentComponent } from './view-department/view-department.component';
 import { AppointmentComponent } from './appointment/appointment.component';
+import { AvailableslotComponent } from './appointment/availableslot/availableslot.component';
 
 
 export const routes: Routes = [
@@ -20,7 +21,8 @@ export const routes: Routes = [
   {path:'add-doctor/:Id',component:AddDoctorComponent},
   {path:'view-doctor/:Id',component:ViewDoctorComponent},
   {path:'view-department/:Id',component:ViewDepartmentComponent},
-  {path:'appointment',component:AppointmentComponent}
+  {path:'appointment',component:AppointmentComponent},
+  {path:'availableslot',component:AvailableslotComponent}
   ];
 
 @NgModule({

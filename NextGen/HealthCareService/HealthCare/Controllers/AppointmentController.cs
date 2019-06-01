@@ -156,8 +156,9 @@ namespace HealthCare.Controllers
 
             return appointmentSlotList.GroupJoin(doctorAppointmentList,
                    slot => slot.Id,
-                   app => app.AppointmentSlotId, (slot, app) => new OpenAppointmentSlot { Id = slot.Id, From = slot.From, To = slot.To, DoctorId = app.FirstOrDefault()?.DoctorId }).ToList();
-
+                   app => app.AppointmentSlotId, (slot, app) => new OpenAppointmentSlot { Id = slot.Id, From = slot.From, To = slot.To, DoctorId = app.FirstOrDefault()?.DoctorId })
+                .Where(x => !x.DoctorId.HasValue)
+                .ToList();
         }
 
 

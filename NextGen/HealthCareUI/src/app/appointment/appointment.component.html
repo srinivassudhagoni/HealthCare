@@ -135,8 +135,8 @@
                                  [(ngModel)]="payment.CustomerName" class="form-control" placeholder="Name on the card">
                            </td>
                         </tr>
-                        <div><button class="button" mat-raised-button color="primary"
-                              (click)="saveAppointment()">Pay</button></div>
+                        <!-- <div><button class="button" mat-raised-button color="primary"
+                              (click)="saveAppointment()">Save</button></div> -->
                      </div>
                   </table>
                </mat-panel-description>
@@ -171,8 +171,6 @@
                                  [(ngModel)]="payment.CustomerName" class="form-control" placeholder="Name on the card">
                            </td>
                         </tr>
-                        <div><button class="button" mat-raised-button color="primary"
-                              (click)="saveAppointment()">Pay</button></div>
                      </div>
                   </table>
                </mat-panel-description>
@@ -192,6 +190,7 @@
 
             </mat-expansion-panel>
          </mat-accordion>
+         <div><button class="button" mat-raised-button color="primary" (click)="saveAppointment()">Save</button></div>
       </form>
    </mat-step>
 </mat-horizontal-stepper>

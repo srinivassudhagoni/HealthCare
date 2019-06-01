@@ -43,3 +43,9 @@ export class OpenAppointmentSlot {
     To: string;
     DoctorId: number;
 }
+
+export class Schedule
+{
+    appointmentDate : Date;
+    slotId : number
+}

@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
-import { Department, Patient, Doctor, OpenAppointmentSlot } from '../shared/department.model';
+import { Department, Patient, Doctor, OpenAppointmentSlot, Schedule } from '../shared/department.model';
 import { DepartmentService } from '../shared/department.service';
 import { DoctorService } from '../shared/doctor.service';
 import { Appointment, CreditCardPayment } from '../shared/get-list-by-department-request.model';
 import { AppointmentService } from '../shared/appointment.service';
 import { AvailableslotComponent } from './availableslot/availableslot.component';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -24,6 +24,7 @@ export class AppointmentComponent implements OnInit {
   secondFromGroup: FormGroup;
   thirdFromGroup: FormGroup;
   consultationDate: Date;
+  selectedDate: Date;
   appointment: Appointment;
   payment: CreditCardPayment;
 
@@ -45,14 +46,17 @@ export class AppointmentComponent implements OnInit {
   openDialog(doctorId: number) {
 
     const doctor: Doctor = this.doctorList.find(x => x.Id === doctorId);
-  
+
     const dialog = this.dialog.open(AvailableslotComponent, {
-      width: '600px',height: '580px',
+      width: '600px', height: '580px',
       data: doctor
     });
 
-    dialog.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialog.afterClosed().subscribe((result: Schedule) => {
+      alert(result.appointmentDate);
+      alert(result.slotId);
+      this.appointment.ConsultationTime = result.appointmentDate;
+      this.appointment.AppointmentSlotId = result.slotId;
     });
   }
 
@@ -75,7 +79,7 @@ export class AppointmentComponent implements OnInit {
 
   saveAppointment() {
 
-    this.appointment.ConsultationTime = this.consultationDate;
+    // this.appointment.ConsultationTime = this.consultationDate;
     this.appointment.DoctorId = this.consultingDoctorId;
     this.appointment.Patient = new Patient();
     this.appointment.CreditCardPayment = new CreditCardPayment();

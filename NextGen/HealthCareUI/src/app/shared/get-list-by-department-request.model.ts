@@ -5,6 +5,12 @@ export class GetListByDepartmentRequest {
     DepartmentId: number;
 }
 
+
+export class GetAppointmentSlotListRequest{
+    DoctorId: number;
+    AppointmentDate: Date;
+}
+
 export class Appointment {
 
     ConsultationTime: Date;
@@ -12,6 +18,7 @@ export class Appointment {
     DoctorId: number;
     Patient: Patient;
     CreditCardPayment: CreditCardPayment;
+    AppointmentSlotId: number;
 }
 
 export class CreditCardPayment{

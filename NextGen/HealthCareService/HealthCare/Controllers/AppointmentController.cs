@@ -128,9 +128,7 @@ namespace HealthCare.Controllers
                 query = query.Where(x => doctorIdList.Contains(x.DoctorId)) : query.Where(x => x.DoctorId == request.DoctorId);
 
             var doctorAppointmentList = query.ToList();
-
             var appointmentSlotList = db.AppointmentSlots.ToList();
-
             var availableSolts = filterAvailableSolts(doctorAppointmentList, appointmentSlotList);
 
             return doctorList.Select(x => new Doctor

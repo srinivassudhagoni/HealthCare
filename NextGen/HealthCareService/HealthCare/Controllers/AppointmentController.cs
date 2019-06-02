@@ -138,11 +138,11 @@ namespace HealthCare.Controllers
                 LastName = x.LastName,
                 SpecializedIn = x.SpecializedIn,
                 DepartmentId = x.DepartmentId,
-                OpenAppointmentSlots = getSlotList(availableSolts, x.Id)
+                OpenAppointmentSlots = getOpenSlotList(availableSolts, x.Id)
             }).ToList();
         }
 
-        private ICollection<OpenAppointmentSlot> getSlotList(ICollection<OpenAppointmentSlot> availableSolts, int id)
+        private ICollection<OpenAppointmentSlot> getOpenSlotList(ICollection<OpenAppointmentSlot> availableSolts, int id)
         {
             var slots = availableSolts.Where(x => x.DoctorId.HasValue && x.DoctorId.Value == id).ToList();
 

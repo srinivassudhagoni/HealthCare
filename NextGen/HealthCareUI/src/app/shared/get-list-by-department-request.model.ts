@@ -11,9 +11,14 @@ export class GetAppointmentSlotListRequest{
     AppointmentDate: Date;
 }
 
+export class GetListByDoctorRequest{
+    DoctorId: number;
+}
+
 export class Appointment {
 
     ConsultationTime: Date;
+    SlotTime: string;
     PatientId: number;
     DoctorId: number;
     Patient: Patient;

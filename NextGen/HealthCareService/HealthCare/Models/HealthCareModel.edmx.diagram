@@ -26,7 +26,7 @@
         <AssociationConnector Association="HealthCareModel.FK_Appointment_CreditCardPayment" />
         <EntityTypeShape EntityType="HealthCareModel.AppointmentSlot" Width="2" PointX="7.375" PointY="9.875" />
         <AssociationConnector Association="HealthCareModel.FK_Appointment_AppointmentSlot" />
-        <EntityTypeShape EntityType="HealthCareModel.OpenAppointmentSlot" Width="1.5" PointX="1.375" PointY="0.5" />
+        <EntityTypeShape EntityType="HealthCareModel.OpenAppointmentSlot" Width="1.5" PointX="1.375" PointY="0.75" />
         <AssociationConnector Association="HealthCareModel.FK_OpenAppointmentSlot_Doctor" />
       </Diagram>
     </edmx:Diagrams>

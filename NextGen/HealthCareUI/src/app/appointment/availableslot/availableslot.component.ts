@@ -2,7 +2,7 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OpenAppointmentSlot, Doctor, Schedule } from 'src/app/shared/department.model';
 import { Moment } from 'moment';
-import { MatCalendar } from '@angular/material';
+import { MatCalendar } from '@angular/material/datepicker';
 import { BehaviorSubject } from 'rxjs';
 import { AppointmentService } from 'src/app/shared/appointment.service';
 
@@ -29,7 +29,7 @@ export class AvailableslotComponent {
   appointmentDate: Date;
   visit: Schedule;
 
-  @ViewChild('calendar') calendar: MatCalendar<Moment>;
+  @ViewChild('calendar', {static: false}) calendar: MatCalendar<Moment>;
 
   get selectedDate(): Date {
     return this.consultationDate;
@@ -38,6 +38,7 @@ export class AvailableslotComponent {
   set selectedDate(value: Date) {
 
     this.consultationDate = value;
+    alert(this.consultationDate);
     this.getSlotList();
   }
 
@@ -55,8 +56,10 @@ export class AvailableslotComponent {
   continue(): void {
 
 
-    this.visit = { appointmentDate: this.consultationDate, slotId: this.slotSelected };
-    //alert(this.visit.appointmentDate);
+   // this.visit = { appointmentDate: this.consultationDate, slotId: this.slotSelected };
+    var slot = this.slotList.find(x=>x.Id===this.slotSelected);
+  
+    this.visit = { appointmentDate: this.consultationDate, slotId: this.slotSelected, slotTime : slot.From };
 
     this.dialogRef.close(this.visit);
   }

@@ -71,6 +71,8 @@ namespace HealthCare.Controllers
         [ActionName("Persist")]
         public IHttpActionResult Persist(PersistAppointmentRequest request)
         {
+            setAppointmentDate(request);
+
             if (request.Appointment.Id == 0)
                 db.Appointments.Add(request.Appointment);
 
@@ -89,6 +91,18 @@ namespace HealthCare.Controllers
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = request.Appointment.Id }, request.Appointment);
+        }
+
+        private void setAppointmentDate(PersistAppointmentRequest request)
+        {
+            if (!request.Appointment.ConsultationTime.HasValue) return;
+            var consultationDate = request.Appointment.ConsultationTime.Value;
+            var slotTimeList = request.Appointment.SlotTime.Split(new char[] { ':' });
+            var hours = slotTimeList?.Length > 0 ? Convert.ToInt32(slotTimeList[0]) : 0;
+            var minutes = slotTimeList?.Length > 0 ? Convert.ToInt32(slotTimeList[1]) : 0;
+
+            var slotDateTime = new DateTime(consultationDate.Year, consultationDate.Month, consultationDate.Day, hours, minutes, 0);
+            request.Appointment.ConsultationTime = slotDateTime;
         }
 
         [HttpPost]

@@ -1,0 +1,23 @@
+<mat-form-field>
+<mat-select  name="DefaultDoctor" [(ngModel)]="DefaultDoctor"
+(selectionChange)="getAppointmentList()">
+<mat-option *ngFor="let doc of doctorList" [value]="doc.Id">{{ doc.FirstName }}
+</mat-option>
+</mat-select>
+</mat-form-field>
+<div class="table table-striped">
+        <thead>
+           <th>Id</th>
+           <th>Patient Name</th>
+           <th>Email</th>
+           <th>ConsultationTime</th>
+        </thead>
+        <tbody>
+           <tr *ngFor="let app of appointmentList ">
+              <td>{{app.Id}}</td>
+              <td>{{app.Patient.FirstName}}</td>
+              <td>{{app.Patient.Email}}</td>
+              <td>{{app.ConsultationTime}}</td>
+           </tr>
+        </tbody>
+</div>        

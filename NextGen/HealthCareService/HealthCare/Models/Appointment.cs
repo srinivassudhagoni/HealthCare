@@ -11,7 +11,7 @@ namespace HealthCare.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Appointment
     {
         public int Id { get; set; }
@@ -20,10 +20,15 @@ namespace HealthCare.Models
         public int DoctorId { get; set; }
         public Nullable<int> CreditCardPaymentId { get; set; }
         public Nullable<int> AppointmentSlotId { get; set; }
-    
+
         public virtual Doctor Doctor { get; set; }
         public virtual Patient Patient { get; set; }
         public virtual CreditCardPayment CreditCardPayment { get; set; }
         public virtual AppointmentSlot AppointmentSlot { get; set; }
+    }
+
+    public partial class Appointment
+    {
+        public string SlotTime { get; set; }
     }
 }

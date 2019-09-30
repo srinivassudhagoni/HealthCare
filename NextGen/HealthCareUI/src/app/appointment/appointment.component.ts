@@ -23,7 +23,7 @@ export class AppointmentComponent implements OnInit {
   firstFromGroup: FormGroup;
   secondFromGroup: FormGroup;
   thirdFromGroup: FormGroup;
-  consultationDate: Date;
+  consultationDate: Date;  
   selectedDate: Date;
   appointment: Appointment;
   payment: CreditCardPayment;
@@ -44,7 +44,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   openDialog(doctorId: number) {
-
+    this.consultingDoctorId = doctorId;
     const doctor: Doctor = this.doctorList.find(x => x.Id === doctorId);
 
     const dialog = this.dialog.open(AvailableslotComponent, {
@@ -54,9 +54,10 @@ export class AppointmentComponent implements OnInit {
 
     dialog.afterClosed().subscribe((result: Schedule) => {
       alert(result.appointmentDate);
-      alert(result.slotId);
+      // alert(result.slotId);
       this.appointment.ConsultationTime = result.appointmentDate;
       this.appointment.AppointmentSlotId = result.slotId;
+      this.appointment.SlotTime = result.slotTime;
     });
   }
 
@@ -85,7 +86,7 @@ export class AppointmentComponent implements OnInit {
     this.appointment.CreditCardPayment = new CreditCardPayment();
 
     this.appointment.Patient.FirstName = this.patient.FirstName;
-    this.appointment.Patient.LasttName = this.patient.LasttName;
+    this.appointment.Patient.LastName = this.patient.LastName;
     this.appointment.Patient.Email = this.patient.Email;
     this.appointment.Patient.MobileNumber = this.patient.MobileNumber;
     this.appointment.Patient.AddressLine1 = this.patient.AddressLine1;

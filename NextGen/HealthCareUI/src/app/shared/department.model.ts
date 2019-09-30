@@ -27,7 +27,7 @@ export class ResourceType {
 export class Patient {
     Id: number;
     FirstName: string;
-    LasttName: string;
+    LastName: string;
     Email: string;
     MobileNumber: string;
     AddressLine1: string;
@@ -46,6 +46,7 @@ export class OpenAppointmentSlot {
 
 export class Schedule
 {
-    appointmentDate : Date;
-    slotId : number
+    appointmentDate: Date;
+    slotId: number ;
+    slotTime: string;
 }

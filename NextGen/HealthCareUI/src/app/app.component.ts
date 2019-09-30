@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angularcrud';
-  notifications="0";
+  notifications = '0';
 }

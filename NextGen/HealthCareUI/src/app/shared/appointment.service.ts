@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PersistAppointmentRequest, Appointment, GetListByDepartmentRequest, GetAppointmentSlotListRequest } from './get-list-by-department-request.model';
+import { PersistAppointmentRequest, Appointment, GetListByDepartmentRequest, GetAppointmentSlotListRequest, GetListByDoctorRequest } from './get-list-by-department-request.model';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Doctor, OpenAppointmentSlot } from './department.model';
 
@@ -9,9 +9,10 @@ import { Doctor, OpenAppointmentSlot } from './department.model';
 export class AppointmentService {
   GetListByDepartmentRequest: GetListByDepartmentRequest;
   GetAppointmentSlotListRequest: GetAppointmentSlotListRequest;
+  GetListByDoctorRequest: GetListByDoctorRequest;
 
   constructor(private http: HttpClient) { }
-  baseURL: string = 'http://localhost:50610/api/Appointment/';
+  baseURL = 'http://localhost:50610/api/Appointment/';
   request: PersistAppointmentRequest;
 
   saveAppoitment(appointment: Appointment) {
@@ -54,5 +55,32 @@ export class AppointmentService {
     };
     return this.http.post<Doctor[]>(this.baseURL + 'GetDoctorListByDepartment', this.GetListByDepartmentRequest, options);
   }
+
+  getListByDoctor(doctorId: number) {
+
+    this.GetListByDoctorRequest = new GetListByDoctorRequest();
+    this.GetListByDoctorRequest.DoctorId = doctorId;
+
+    const options = {
+      headers: new HttpHeaders({
+        'content-type': 'application/json'
+      })
+    };
+    return this.http.post<Appointment[]>(this.baseURL + 'GetListByDoctor', this.GetListByDoctorRequest, options);
+  }
+
+  getAppointmentSlotList(doctorId: number) {
+
+    this.GetAppointmentSlotListRequest = new GetAppointmentSlotListRequest();
+    this.GetAppointmentSlotListRequest.DoctorId = doctorId;
+
+    const options = {
+      headers: new HttpHeaders({
+        'content-type': 'application/json'
+      })
+    };
+    return this.http.post<Appointment[]>(this.baseURL + 'GetAppointmentSlotList', this.GetAppointmentSlotListRequest, options);
+  }
+
 
 }

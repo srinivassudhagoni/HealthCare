@@ -8,11 +8,11 @@ import { ViewDoctorComponent } from './view-doctor/view-doctor.component';
 import { ViewDepartmentComponent } from './view-department/view-department.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { AvailableslotComponent } from './appointment/availableslot/availableslot.component';
-
+import { DocAppointmentComponent } from'./doc-appointment/doc-appointment.component';
 
 export const routes: Routes = [
   //{path:'',component:ListDepartmentComponent, pathMatch:'full'},
-  {path:'',component:AppointmentComponent, pathMatch:'full'},
+  {path:'doc-appointment',component:DocAppointmentComponent},
   {path:'list-department',component:ListDepartmentComponent},
   {path:'add-department',component:AddDepartmentComponent},
   {path:'add-department/:Id',component:AddDepartmentComponent},

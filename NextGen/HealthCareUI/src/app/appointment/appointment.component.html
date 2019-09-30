@@ -28,7 +28,7 @@
                   <td>{{doc.Id}}</td>
                   <td>{{doc.FirstName}} {{doc.LastName}}</td>
                   <td>{{doc.SpecializedIn}}</td>
-                  <td><button mat-raised-button color="primary" (click)="openDialog(doc.Id)">AvailableSlot</button></td>
+                  <td><button mat-raised-button color="primary" name="availableslot"  (click)="openDialog(doc.Id)">AvailableSlot</button></td>
                </tr>
             </tbody>
             <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
@@ -63,8 +63,8 @@
                </tr>
                <tr>
                   <td class="col">
-                     <input type="text" name="Mobile" #Mobile="ngModel" [(ngModel)]="patient.Mobile"
-                        class="form-control" placeholder="Mobile">
+                     <input type="text" name="MobileNumber" #Mobile="ngModel" [(ngModel)]="patient.MobileNumber"
+                        class="form-control" placeholder="Mobile Number">
                   </td>
                   <td class="col">
                      <input type="text" name="AddressLine1" #AddressLine1="ngModel" [(ngModel)]="patient.AddressLine1"

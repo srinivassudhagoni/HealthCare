@@ -13,7 +13,7 @@ import { GetListByDepartmentRequest } from './get-list-by-department-request.mod
 export class DoctorService {
 
   constructor(private http: HttpClient) { }
-  baseURL: string = 'http://localhost:50610/api/Doctor/';
+  baseURL = 'http://localhost:50610/api/Doctor/';
   handleError: any;
   request: GetListRequest;
   GetListByDepartmentRequest: GetListByDepartmentRequest;
@@ -33,7 +33,7 @@ export class DoctorService {
       })
     };
     return this.http.post<Doctor>(this.baseURL + 'Persist', doctor, options);
-  };
+  }
 
   deleteById(id: number) {
     const options = {
@@ -42,7 +42,7 @@ export class DoctorService {
       })
     };
     return this.http.delete(this.baseURL + 'DeleteDoctor/' + id, options);
-  };
+  }
 
   searchList(searchString: string) {
     this.request = new GetListRequest();
@@ -52,7 +52,7 @@ export class DoctorService {
         'content-type': 'application/json'
       })
     };
-    return this.http.post<Doctor[]>(this.baseURL + 'GetFilteredList', this.request, options)
+    return this.http.post<Doctor[]>(this.baseURL + 'GetFilteredList', this.request, options);
   }
 
   getListByDepartment(departmentId: number) {

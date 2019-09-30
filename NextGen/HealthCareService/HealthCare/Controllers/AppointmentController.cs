@@ -142,9 +142,7 @@ namespace HealthCare.Controllers
                 query = query.Where(x => doctorIdList.Contains(x.DoctorId)) : query.Where(x => x.DoctorId == request.DoctorId);
 
             var doctorAppointmentList = query.ToList();
-
             var appointmentSlotList = db.AppointmentSlots.ToList();
-
             var availableSolts = filterAvailableSolts(doctorAppointmentList, appointmentSlotList);
 
             return doctorList.Select(x => new Doctor
@@ -154,11 +152,11 @@ namespace HealthCare.Controllers
                 LastName = x.LastName,
                 SpecializedIn = x.SpecializedIn,
                 DepartmentId = x.DepartmentId,
-                OpenAppointmentSlots = getSlotList(availableSolts, x.Id)
+                OpenAppointmentSlots = getOpenSlotList(availableSolts, x.Id)
             }).ToList();
         }
 
-        private ICollection<OpenAppointmentSlot> getSlotList(ICollection<OpenAppointmentSlot> availableSolts, int id)
+        private ICollection<OpenAppointmentSlot> getOpenSlotList(ICollection<OpenAppointmentSlot> availableSolts, int id)
         {
             var slots = availableSolts.Where(x => x.DoctorId.HasValue && x.DoctorId.Value == id).ToList();
 
